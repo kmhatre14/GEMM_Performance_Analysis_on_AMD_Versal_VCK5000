@@ -30,9 +30,23 @@
 *.exe
 *.out
 *.app
+*.xclbin
+hostexe
+
+# Extra files 
+*.BIN
+*.bif
+*.bin 
+
 # Everything inside build
 build/
 Single_Engine/
+Multiple_Engine/FP32/AIE16/_x
+Multiple_Engine/FP32/AIE16/_x.hw.xilinx_vck5000_gen4x8_qdma_2_202220_1
+Multiple_Engine/FP32/AIE16/.ipcache
+Multiple_Engine/FP32/AIE16/.Xil
+Multiple_Engine/FP32/AIE16/build_dir.hw.xilinx_vck5000_gen4x8_qdma_2_202220_1
+Work 
 
 # Everything inside .vscode
 .vscode/
@@ -40,3 +54,8 @@ Single_Engine/
 # Compilation database
 compile_commands.json
 .cache/*
+
+# log files 
+*.log
+*.run_summary
+*.package_summary
