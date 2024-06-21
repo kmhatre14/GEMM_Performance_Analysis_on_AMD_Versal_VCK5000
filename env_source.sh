@@ -2,9 +2,8 @@
 
 # Function to display usage
 usage() {
-    echo "Usage: $0 <Server_Name>"
+    echo "Usage: source env_source.sh <Server_Name>"
     echo "Server_Name : hacc , advent"
-    exit 1
 }
 
 # Load the Advent Sirius environment 
