@@ -149,3 +149,6 @@ cleantemp:
 	-$(RMDIR) ./_x.$(TARGET).${PLATFORM_NAME}
 cleanpac:
 	-$(RMDIR) hostexe main.o mm_hw.xclbin boot_image.bif BOOT.BIN aie.merged.cdo.bin
+
+# Sample Make Command 
+# time make -f Makefile_VCK5000 all &> make_all.log
