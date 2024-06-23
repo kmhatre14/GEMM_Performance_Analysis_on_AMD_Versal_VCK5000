@@ -40,7 +40,6 @@ hostexe
 
 # Everything inside build
 build/
-Single_Engine/
 Multiple_Engine/FP32/AIE16/_x
 Multiple_Engine/FP32/AIE16/_x.hw.xilinx_vck5000_gen4x8_qdma_2_202220_1
 Multiple_Engine/FP32/AIE16/.ipcache
