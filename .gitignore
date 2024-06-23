@@ -37,7 +37,7 @@ hostexe
 *.BIN
 *.bif
 *.bin 
-
+*.Xil
 # Everything inside build
 build/
 Multiple_Engine/FP32/AIE16/_x
@@ -46,6 +46,9 @@ Multiple_Engine/FP32/AIE16/.ipcache
 Multiple_Engine/FP32/AIE16/.Xil
 Multiple_Engine/FP32/AIE16/build_dir.hw.xilinx_vck5000_gen4x8_qdma_2_202220_1
 Work 
+Single_Engine/int8/sim
+Single_Engine/int8/work_aie
+
 
 # Everything inside .vscode
 .vscode/
