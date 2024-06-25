@@ -186,7 +186,7 @@ def print_time_summary(time_dict,file_name):
                         avg = sum_/len_
                         print(f"Avg over interation for buf{i} : {avg}")
                         sum_over_tile_rd = sum_over_tile_rd + sum_
-                        no_read_tx = no_read_tx + 1
+                        no_read_tx = no_read_tx + len_
                     
                     elif i in [4,5]:
                         sum_ = sum(ele[i])
@@ -194,7 +194,7 @@ def print_time_summary(time_dict,file_name):
                         avg = sum_/len_
                         print(f"Avg over interation for buf{i} : {avg}")
                         sum_over_tile_wr = sum_over_tile_wr + sum_
-                        no_write_tx = no_write_tx + 1
+                        no_write_tx = no_write_tx + len_
 
         if no_read_tx != 0:
             avg_over_tile_rd = sum_over_tile_rd / no_read_tx
