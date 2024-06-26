@@ -27,7 +27,8 @@ class log_entry:
         return self.log_txt
 
 
-ptrn_lockid = r"lockid=(\d+)"
+ptrn_lockid_alloc = r"lockid=(\d+)"
+ptrn_lockid_mm2s = r"lock_id=(\d+)"
 ptrn_time = r"time=(\d+)"
 ptrn_lockval = r"lockvalue=(\d+)"
 ptrn_col = r"col=(\d+)"
@@ -41,8 +42,8 @@ def get_tile(log_line):
     # tile = Tile(match[1],match1[1])
     return match[1],match1[1]
 
-def get_lockid(log_line):
-    match = re.search(ptrn_lockid, log_line)
+def get_lockid(log_line, ptrn):
+    match = re.search(ptrn, log_line)
     lockid = 0
     if match:
         lockid = match.group(1)
@@ -67,26 +68,45 @@ def lock_data_extracter(file):
     main_dict = dict()
     tile_list = []
     for i in fo.readlines():
-        if "event=LOCK_ALLOC" in i or "event=LOCK_RELEASE" in i:
+        if "event=LOCK_ALLOC" in i or "event=LOCK_RELEASE" in i or "event=DMA_MM2S_START" in i:
             
             Col,Row = get_tile(i)
 
-            if f"Tile({Col},{Row})" not in tile_list:
-                # tile = Tile(Col,Row)
-                tile_list.append(f"Tile({Col},{Row})")
-            # if tile not in main_dict:
-                main_dict[f"Tile({Col},{Row})"] = []
-                # one list for lock id's and another for log_entry object list
-                main_dict[f"Tile({Col},{Row})"].append(list())
-                main_dict[f"Tile({Col},{Row})"].append(list())
+            if "event=LOCK_ALLOC" in i or "event=LOCK_RELEASE" in i:
 
-            lockid = get_lockid(i)
+                if f"Tile({Col},{Row})" not in tile_list:
+                    # tile = Tile(Col,Row)
+                    tile_list.append(f"Tile({Col},{Row})")
+                # if tile not in main_dict:
+                    main_dict[f"Tile({Col},{Row})"] = []
+                    # one list for lock id's and another for log_entry object list
+                    main_dict[f"Tile({Col},{Row})"].append(list())
+                    main_dict[f"Tile({Col},{Row})"].append(list())
+                    main_dict[f"Tile({Col},{Row})"].append(list())
 
-            if lockid not in main_dict[f"Tile({Col},{Row})"][0]:
-                main_dict[f"Tile({Col},{Row})"][0].append(lockid)
+                lockid = get_lockid(i,ptrn_lockid_alloc)
+                if lockid not in main_dict[f"Tile({Col},{Row})"][0]:
+                    main_dict[f"Tile({Col},{Row})"][0].append(lockid)
 
-            log_entry_ = get_log_entry(i,f"Tile({Col},{Row})",lockid)
-            main_dict[f"Tile({Col},{Row})"][1].append(log_entry_)
+                log_entry_ = get_log_entry(i,f"Tile({Col},{Row})",lockid)
+                main_dict[f"Tile({Col},{Row})"][2].append(log_entry_)
+            
+            if "event=DMA_MM2S_START" in i:
+
+                if f"Tile({Col},{Row})" not in tile_list:
+                    # tile = Tile(Col,Row)
+                    tile_list.append(f"Tile({Col},{Row})")
+                # if tile not in main_dict:
+                    main_dict[f"Tile({Col},{Row})"] = []
+                    # one list for lock id's and another for log_entry object list
+                    main_dict[f"Tile({Col},{Row})"].append(list())
+                    main_dict[f"Tile({Col},{Row})"].append(list())
+                    main_dict[f"Tile({Col},{Row})"].append(list())
+
+                lockid_mm2s = get_lockid(i,ptrn_lockid_mm2s)
+                if lockid_mm2s not in main_dict[f"Tile({Col},{Row})"][1]:
+                    main_dict[f"Tile({Col},{Row})"][1].append(lockid_mm2s)
+                
 
     fo.close()
     return main_dict
@@ -109,13 +129,16 @@ def get_rd_wr_time(data):
         timing_dict[tile] = []
         timing_dict[tile].append(list())
         print("{} with lock {}".format(tile,data[tile][0]))
-        locklist = data[tile][0] 
+        locklist = data[tile][0]
+
+        mm2s_lock_list = data[tile][1]
 
         # iterate over all the locks in the lock list 
         for lock in locklist:
             rd_wr_list = dict()
-            if lock in {0,1,2,3}:
-                for log_entry in data[tile][1]:
+
+            if lock not in mm2s_lock_list:
+                for log_entry in data[tile][2]:
                     # timing_dict[tile].append()
                     if log_entry.lockid == lock:
                         if lock not in rd_wr_list:
@@ -140,8 +163,8 @@ def get_rd_wr_time(data):
                                           .format(log_entry.lockid,exe_time))
                 timing_dict[tile].append(rd_wr_list)
 
-            elif lock in {4,5}:
-                for log_entry in data[tile][1]:
+            elif lock in mm2s_lock_list:
+                for log_entry in data[tile][2]:
                     if log_entry.lockid == lock:
                         if lock not in rd_wr_list:
                             rd_wr_list[lock] = []
@@ -216,9 +239,9 @@ args = parser.parse_args()
 file_path = args.file
 
 extracted_data = lock_data_extracter(file_path)
+print(extracted_data)
 time_dict = get_rd_wr_time(extracted_data)
 
-#print(extracted_data)
 print(time_dict)
 
 
