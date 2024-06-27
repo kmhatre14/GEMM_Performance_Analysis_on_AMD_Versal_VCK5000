@@ -35,9 +35,10 @@ KERNEL_XO :=$(TEMP_DIR)/dma0.xo
 # AIE specific variables
 GRAPH   := aie/aie_top_all.cpp
 LIBADF  = libadf.a
-AIE_SIM_DIR = simulation/aiesim
+AIE_WORK_DIR = $(BUILD_DIR_MAIN)/Work_AIE
+AIE_SIM_DIR = sim/aiesim
 AIE_CMPL_CMD = aiecompiler -platform=${PLATFORM} --target=hw --stacksize=1024 --pl-register-threshold=250 --pl-freq=230  -include="./aie" -include="./aie/layer0"  --constraints ./aie_top_all_aie_mapped.aiecst --disable-transform-broadcast-split=false -workdir=./$(AIE_WORK_DIR) ${GRAPH} --output-archive=$(EXEC_DIR)/$(LIBADF)
-AIE_SIM_CMD = aiesimulator --pkg-dir=./$(AIE_WORK_DIR) --dump-vcd $(AIE_SIM_DIR)foo --profile
+AIE_SIM_CMD = aiesimulator --pkg-dir=./$(AIE_WORK_DIR) --dump-vcd $(AIE_SIM_DIR)/trace --profile -o $(AIE_SIM_DIR)
 AIE_HOSTEXE = aie_control_xrt.o
 ifeq ($(PRE_BUILT),1)
 	AIE_HOSTEXE := pre_built/aie_control_xrt.o
@@ -137,6 +138,7 @@ ${LIBADF}: ${GRAPH}
 	@echo "COMPLETE: aie success."
 
 aiesim: ${LIBADF}
+	@mkdir -p $(AIE_SIM_DIR)
 	${AIE_SIM_CMD}
 	@echo "COMPLETE: aiesim success."
 
