@@ -137,7 +137,7 @@ $(HOST_EXE):
 package:${FINAL_XCLBIN}
 ${FINAL_XCLBIN}: $(BINARY_CONTAINERS) $(LIBADF) 
 	@mkdir -p $(EXEC_DIR)
-	time v++ -p -t $(TARGET) -f $(PLATFORM) $(BINARY_CONTAINERS) $(EXEC_DIR)/$(LIBADF) -o $(EXEC_DIR)/${FINAL_XCLBIN} --package.boot_mode=ospi
+	time v++ -p -t $(TARGET) -f $(PLATFORM) $(BINARY_CONTAINERS) $(EXEC_DIR)/$(LIBADF) -o $(EXEC_DIR)/${FINAL_XCLBIN} --package.boot_mode=ospi --temp_dir $(BUILD_DIR_MAIN)/package_temp
 	@echo "COMPLETE: package created."
 
 clean:
