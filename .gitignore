@@ -38,6 +38,7 @@ hostexe
 *.bif
 *.bin 
 *.Xil
+
 # Everything inside build
 build/
 Multiple_Engine/FP32/AIE16/_x
@@ -48,7 +49,8 @@ Multiple_Engine/FP32/AIE16/build_dir.hw.xilinx_vck5000_gen4x8_qdma_2_202220_1
 Work 
 Single_Engine/int8/sim
 Single_Engine/int8/work_aie
-
+Single_Engine/FP32
+Multiple_Engine/*/*/sim
 
 # Everything inside .vscode
 .vscode/
@@ -61,3 +63,7 @@ compile_commands.json
 *.log
 *.run_summary
 *.package_summary
+*.AIE_SIM_CMD_LINE_OPTIONS
+*.csv
+*ISS_RPC_SERVER_PORT*
+*pl_sample_counts*
