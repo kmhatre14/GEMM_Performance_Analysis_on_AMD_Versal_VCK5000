@@ -45,7 +45,7 @@ ifeq ($(PRE_BUILT),1)
 endif
 
 EMU_CMD = ./launch_hw_emu.sh
-PACKAGE_OUT = ./package.$(TARGET)
+PACKAGE_OUT = ./$(EXEC_DIR)/package.$(TARGET)
 PRE_BUILT_XCLBIN = ./pre_built/${XCLBIN}
 PRE_BUILT_LIBADF = ./pre_built/${LIBADF}
 RM = rm -f
@@ -184,6 +184,7 @@ package_${TARGET}: unzip ${PRE_BUILT_LIBADF} ${PRE_BUILT_XCLBIN} host
 		--package.boot_mode=sd \
 		--package.image_format=ext4 \
 		--package.sd_file ${HOST_EXE} \
+		--temp_dir $(BUILD_DIR_MAIN)/pakage_temp \
 		${PRE_BUILT_LIBADF} ${PRE_BUILT_XCLBIN} -o ${FINAL_XCLBIN}
 	@echo "COMPLETE: Package created."
 else
@@ -195,7 +196,8 @@ package_${TARGET}: $(EXEC_DIR)/${LIBADF} ${BINARY_CONTAINERS} host
 		--package.boot_mode=sd \
 		--package.image_format=ext4 \
 		--package.defer_aie_run \
-		--package.sd_file ${HOST_EXE} \
+		--package.sd_file $(EXEC_DIR)/${HOST_EXE} \
+		--temp_dir $(BUILD_DIR_MAIN)/pakage_temp \
 		$(EXEC_DIR)/${LIBADF} ${BINARY_CONTAINERS} -o ${FINAL_XCLBIN}
 	@echo "COMPLETE: Package created."
 endif
