@@ -10,13 +10,13 @@ usage() {
 advent_vek_env(){
     echo "Loading advent VEK280 Vitis development enviroment"
 
-    source /mnt/vault1/kmhatre/Software/AMD/Vitis/2023.2/settings64.sh
-    export XILINX_VERSAL=/opt/AMD/common_files/xilinx-versal-common-v2023.2/
+    source /mnt/vault1/kmhatre/Software/AMD/Vitis/2024.1/settings64.sh
+    export XILINX_VERSAL=/opt/AMD/common_files/xilinx-versal-common-v2024.1/
     source $XILINX_VERSAL/environment-setup-cortexa72-cortexa53-xilinx-linux
 
-    export ROOTFS=/opt/AMD/common_files/xilinx-versal-common-v2023.2/rootfs.ext4  
-    export IMAGE=/opt/AMD/common_files/xilinx-versal-common-v2023.2/Image
-    export PLATFORM_REPO_PATHS=/mnt/vault1/kmhatre/Software/AMD/Vitis/2023.2/base_platforms/
+    export ROOTFS=/opt/AMD/common_files/xilinx-versal-common-v2024.1/rootfs.ext4  
+    export IMAGE=/opt/AMD/common_files/xilinx-versal-common-v2024.1/Image
+    export PLATFORM_REPO_PATHS=/mnt/vault1/kmhatre/Software/AMD/Vitis/2024.1/base_platforms/
 }
 
 # Load the Advent Sirius environment 
