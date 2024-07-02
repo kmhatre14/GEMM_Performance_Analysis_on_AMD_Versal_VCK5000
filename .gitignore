@@ -51,7 +51,8 @@ Single_Engine/int8/sim
 Single_Engine/int8/work_aie
 Single_Engine/FP32
 Multiple_Engine/*/*/sim
-
+Single_Engine/fp32/work_aie/*
+Single_Engine/fp32/sim/*
 # Keep the previous compilation done inside FP32 folder as is 
 Multiple_Engine/FP32
 
