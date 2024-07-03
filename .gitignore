@@ -51,10 +51,11 @@ Single_Engine/int8/sim
 Single_Engine/int8/work_aie
 Single_Engine/FP32
 Multiple_Engine/*/*/sim
+Multiple_Engine/fp32/AIE16/output
 
 # Keep the previous compilation done inside FP32 folder as is 
 Multiple_Engine/FP32
-
+Multiple_Engine/AIE_ML
 Single_Engine/AIE_ML
 
 # Everything inside .vscode
