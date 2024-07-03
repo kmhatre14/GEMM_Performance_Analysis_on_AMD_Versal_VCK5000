@@ -1,0 +1,88 @@
+{
+    "NodeConstraints": {
+        "LHS_in0_L0": {
+            "shim": {
+                "column": 21,
+                "channel": 2
+            }
+        },
+        "LHS_in1_L0": {
+            "shim": {
+                "column": 23,
+                "channel": 2
+            }
+        },
+        "LHS_in2_L0": {
+            "shim": {
+                "column": 24,
+                "channel": 2
+            }
+        },
+        "LHS_in3_L0": {
+            "shim": {
+                "column": 22,
+                "channel": 2
+            }
+        },
+        "LHS_in4_L0": {
+            "shim": {
+                "column": 25,
+                "channel": 2
+            }
+        },
+        "LHS_in5_L0": {
+            "shim": {
+                "column": 27,
+                "channel": 2
+            }
+        },
+        "LHS_in6_L0": {
+            "shim": {
+                "column": 28,
+                "channel": 2
+            }
+        },
+        "LHS_in7_L0": {
+            "shim": {
+                "column": 26,
+                "channel": 2
+            }
+        },
+        "RHS_in0_L0": {
+            "shim": {
+                "column": 21,
+                "channel": 4
+            }
+        },
+        "RHS_in1_L0": {
+            "shim": {
+                "column": 23,
+                "channel": 4
+            }
+        },
+        "RHS_in2_L0": {
+            "shim": {
+                "column": 28,
+                "channel": 4
+            }
+        },
+        "RHS_in3_L0": {
+            "shim": {
+                "column": 26,
+                "channel": 4
+            }
+        },
+        "out0_L0": {
+            "shim": {
+                "column": 24,
+                "channel": 2
+            }
+        },
+        "out1_L0": {
+            "shim": {
+                "column": 28,
+                "channel": 2
+            }
+        }
+    }
+}
