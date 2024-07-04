@@ -1,0 +1,46 @@
+{
+    "NodeConstraints": {
+        "LHS_in0_L0": {
+            "shim": {
+                "column": 23,
+                "channel": 2
+            }
+        },
+        "LHS_in1_L0": {
+            "shim": {
+                "column": 26,
+                "channel": 2
+            }
+        },
+        "RHS_in0_L0": {
+            "shim": {
+                "column": 23,
+                "channel": 4
+            }
+        },
+        "RHS_in1_L0": {
+            "shim": {
+                "column": 24,
+                "channel": 2
+            }
+        },
+        "RHS_in2_L0": {
+            "shim": {
+                "column": 26,
+                "channel": 4
+            }
+        },
+        "RHS_in3_L0": {
+            "shim": {
+                "column": 25,
+                "channel": 2
+            }
+        },
+        "out0_L0": {
+            "shim": {
+                "column": 26,
+                "channel": 2
+            }
+        }
+    }
+}
