@@ -498,12 +498,13 @@ void compute(axis_stream_A& dataA_out, axis_stream_B& dataB_out, axis_stream_C& 
     #pragma HLS ARRAY_PARTITION variable=buff1_A cyclic factor=BUFFA_FACTOR dim=3
 
     ap_uint<PLIO_WIDTH> buff0_B[(B/PACK_IN)*C][Z*Y][PACK_IN*RIGHT_SIZE];
-    #pragma HLS bind_storage variable=buff0_B type=RAM_T2P impl=BRAM
+    #pragma HLS bind_storage variable=buff0_B type=RAM_T2P impl=URAM
     #pragma HLS ARRAY_PARTITION variable=buff0_B complete dim=1
     #pragma HLS ARRAY_PARTITION variable=buff0_B cyclic factor=BUFFB_FACTOR dim=3
 
+    // ap_uint<PLIO_WIDTH> buff1_B[8][12][1024];
     ap_uint<PLIO_WIDTH> buff1_B[(B/PACK_IN)*C][Z*Y][PACK_IN*RIGHT_SIZE];
-    #pragma HLS bind_storage variable=buff1_B type=RAM_T2P impl=BRAM
+    #pragma HLS bind_storage variable=buff1_B type=RAM_T2P impl=URAM
     #pragma HLS ARRAY_PARTITION variable=buff1_B complete dim=1
     #pragma HLS ARRAY_PARTITION variable=buff1_B cyclic factor=BUFFB_FACTOR dim=3
 
