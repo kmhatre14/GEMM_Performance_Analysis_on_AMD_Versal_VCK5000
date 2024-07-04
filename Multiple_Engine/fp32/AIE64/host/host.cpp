@@ -8,14 +8,14 @@
 #include <math.h>
 #include <string>
 
-#include "../aie/layer0/aie_top_L0.h"
+// #include "../aie/layer0/aie_top_L0.h"
 
 // This is used for the PL Kernels
-#include "xrt/experimental/xrt_kernel.h"
+#include "experimental/xrt_kernel.h"
 
 // Using the ADF API that call XRT API
-#include "adf/adf_api/XRTConfig.h"
-mm_x4_x4_x4_graph0 mm_graph0;
+// #include "adf/adf_api/XRTConfig.h"
+// mm_x4_x4_x4_graph0 mm_graph0;
 using namespace std;
 
 void post_pro(float *Data_hw, std::vector<float> final_result, const int M1, const int N1, const int M){
@@ -156,9 +156,9 @@ int main(int argc, char** argv) {
     auto out_bomapped = out_bohdl.map<float*>();
     
     
-    auto ghdl0=xrt::graph(device,uuid,"mm_graph0");
-    printf("graph run\n");
-    ghdl0.run(-1);
+    // auto ghdl0=xrt::graph(device,uuid,"mm_graph0");
+    // printf("graph run\n");
+    // ghdl0.run(-1);
     
 
     std::cout << "Kernel run\n";
