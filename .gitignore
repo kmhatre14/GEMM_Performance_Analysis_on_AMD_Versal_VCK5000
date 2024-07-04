@@ -38,6 +38,8 @@ hostexe
 *.bif
 *.bin 
 *.Xil
+*.db
+*.run
 
 # Everything inside build
 build/
