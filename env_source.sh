@@ -3,7 +3,20 @@
 # Function to display usage
 usage() {
     echo "Usage: source env_source.sh <Server_Name>"
-    echo "Server_Name : hacc , advent"
+    echo "Server_Name : hacc, advent, advent_vek"
+}
+
+# Load the Advent Sirius environment 
+advent_vek_env(){
+    echo "Loading advent VEK280 Vitis development enviroment"
+
+    source /mnt/vault1/kmhatre/Software/AMD/Vitis/2024.1/settings64.sh
+    export XILINX_VERSAL=/opt/AMD/common_files/xilinx-versal-common-v2024.1/
+    source $XILINX_VERSAL/environment-setup-cortexa72-cortexa53-xilinx-linux
+
+    export ROOTFS=/opt/AMD/common_files/xilinx-versal-common-v2024.1/rootfs.ext4  
+    export IMAGE=/opt/AMD/common_files/xilinx-versal-common-v2024.1/Image
+    export PLATFORM_REPO_PATHS=/mnt/vault1/kmhatre/Software/AMD/Vitis/2024.1/base_platforms/
 }
 
 # Load the Advent Sirius environment 
@@ -65,8 +78,13 @@ case $input in
         print_env
         ;;
     advent)
-        echo "Loading environment variables for Advent - Sirius"
+        echo "Loading environment variables for Advent - Sirius | VCK190"
         advent_env
+        print_env
+        ;;
+    advent_vek)
+        echo "Loading environment variables for Advent - Sirius | VEK280"
+        advent_vek_env
         print_env
         ;;
     help)
