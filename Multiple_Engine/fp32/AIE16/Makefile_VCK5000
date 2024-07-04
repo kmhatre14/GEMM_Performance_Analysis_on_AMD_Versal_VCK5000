@@ -48,7 +48,7 @@ VCC      = v++
 VPP_XO_FLAGS += -c --platform $(PLATFORM) --save-temps --optimize 2 -g
 VPP_XO_FLAGS += --hls.jobs 8
 VPP_XO_FLAGS += -I$(CUR_DIR)/kernel
-VPP_XO_FLAGS += --profile.data all:all:all
+# VPP_XO_FLAGS += --profile.data all:all:all
 
 CXX := g++
 GCC_FLAGS := -Wall -c \
@@ -78,7 +78,7 @@ endif
 CLFLAGS += --hls.jobs 8
 CLFLAGS += --config ./conn.cfg 
 CLFLAGS += --kernel_frequency ${Frequency}
-CLFLAGS += --profile.data all:all:all
+# CLFLAGS += --profile.data all:all:all
 LDCLFLAGS := --vivado.synth.jobs 8 --vivado.impl.jobs 8
 
 .PHONY: clean
@@ -103,7 +103,7 @@ all: aie kernels build host package
 
 aie: guard-PLATFORM_REPO_PATHS ${LIBADF}
 ${LIBADF}: ${GRAPH}
-	@rm -rf $(AIE_WORK_DIR) $(EXEC_DIR)/libadf.a
+	# @rm -rf $(AIE_WORK_DIR) $(EXEC_DIR)/libadf.a
 	@mkdir -p $(AIE_WORK_DIR)
 	@mkdir -p $(EXEC_DIR)
 	time ${AIE_CMPL_CMD}
