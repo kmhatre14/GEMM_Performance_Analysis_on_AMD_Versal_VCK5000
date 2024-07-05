@@ -11,7 +11,7 @@
 // #include "../aie/layer0/aie_top_L0.h"
 
 // This is used for the PL Kernels
-#include "xrt/experimental/xrt_kernel.h"
+#include "experimental/xrt_kernel.h"
 
 // Using the ADF API that call XRT API
 // #include "adf/adf_api/XRTConfig.h"
