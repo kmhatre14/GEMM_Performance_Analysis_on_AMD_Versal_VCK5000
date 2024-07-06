@@ -68,6 +68,9 @@ def lock_data_extracter(file):
     main_dict = dict()
     tile_list = []
     for i in fo.readlines():
+        # LOCK_ALLOC and LOCK_RELEASE events are checked to extract time 
+        # information from the trace. DMA_MM2S_START is checked to get the 
+        # lockids for mm2s locks for differentiation later
         if "event=LOCK_ALLOC" in i or "event=LOCK_RELEASE" in i or "event=DMA_MM2S_START" in i:
             
             Col,Row = get_tile(i)
@@ -104,14 +107,16 @@ def lock_data_extracter(file):
                     main_dict[f"Tile({Col},{Row})"].append(list())
 
                 lockid_mm2s = get_lockid(i,ptrn_lockid_mm2s)
-                if lockid_mm2s not in main_dict[f"Tile({Col},{Row})"][1]:
+                # Check if lockid_mm2s is not a garbage value. Do not append if its
+                # a garbage value. Valid range is less then 15 (kaustubh)
+                if lockid_mm2s not in main_dict[f"Tile({Col},{Row})"][1]  and lockid_mm2s < 15:
                     main_dict[f"Tile({Col},{Row})"][1].append(lockid_mm2s)
                 
 
     fo.close()
     return main_dict
 
-
+# Extract the read write timing from the extacted trace
 def get_rd_wr_time(data):
     # create a dict for storing the timing related data 
     timing_dict = dict()
@@ -138,11 +143,15 @@ def get_rd_wr_time(data):
             rd_wr_list = dict()
 
             if lock not in mm2s_lock_list:
+                # print("lock value : {}".format(lock))
+                # MOdify the key in the new dict to show the lock read write info
+                lock_key = "R_"+str(lock)
+                # print("lock key: {}".format(lock_key))
                 for log_entry in data[tile][2]:
                     # timing_dict[tile].append()
                     if log_entry.lockid == lock:
-                        if lock not in rd_wr_list:
-                            rd_wr_list[lock] = []
+                        if lock_key not in rd_wr_list:
+                            rd_wr_list[lock_key] = []
                         
                         # print(log_entry)
                         # If LOCK_ALLOC event is present record the start 
@@ -158,16 +167,19 @@ def get_rd_wr_time(data):
                                 if log_entry.lockValue == "NA":
                                     end_time = log_entry.time
                                     exe_time = end_time - start_time
-                                    rd_wr_list[lock].append(exe_time)
+                                    rd_wr_list[lock_key].append(exe_time)
                                     print("PL to AIE READ operation for buf {} took {} ps"
                                           .format(log_entry.lockid,exe_time))
                 timing_dict[tile].append(rd_wr_list)
 
             elif lock in mm2s_lock_list:
+                print("lock value : {}".format(lock))
+                lock_key = "W_"+str(lock)
+                print("lock key: {}".format(lock_key))
                 for log_entry in data[tile][2]:
                     if log_entry.lockid == lock:
-                        if lock not in rd_wr_list:
-                            rd_wr_list[lock] = []
+                        if lock_key not in rd_wr_list:
+                            rd_wr_list[lock_key] = []
                         # print(log_entry)
                         if log_entry.event == "LOCK_ALLOC":
                             if log_entry.lockValue == 1: # WRITE
@@ -180,12 +192,13 @@ def get_rd_wr_time(data):
                                 if log_entry.lockValue == "NA":
                                     end_time = log_entry.time
                                     exe_time = end_time - start_time
-                                    rd_wr_list[lock].append(exe_time)
+                                    rd_wr_list[lock_key].append(exe_time)
                                     print("AIE to PL WRITE operation for buf {} took {} ps"
                                           .format(log_entry.lockid,exe_time))
                 timing_dict[tile].append(rd_wr_list)
     return timing_dict
 
+# A fucntion to print a summary in to CSV
 def print_time_summary(time_dict,file_name):
     csvfile = open(file_name, 'w',newline='')
     csvwriter = csv.writer(csvfile)
@@ -203,21 +216,22 @@ def print_time_summary(time_dict,file_name):
             if ele != []:
                 # Get the sum over iterations 
                 for i in ele:
-                    if i in [0,1,2,3]:
-                        sum_ = sum(ele[i])
-                        len_ = len(ele[i])
-                        avg = sum_/len_
-                        print(f"Avg over interation for buf{i} : {avg}")
-                        sum_over_tile_rd = sum_over_tile_rd + sum_
-                        no_read_tx = no_read_tx + len_
-                    
-                    elif i in [4,5]:
-                        sum_ = sum(ele[i])
-                        len_ = len(ele[i])
-                        avg = sum_/len_
-                        print(f"Avg over interation for buf{i} : {avg}")
-                        sum_over_tile_wr = sum_over_tile_wr + sum_
-                        no_write_tx = no_write_tx + len_
+                    if ele[i] != []:
+                        # Check if the Lock is Read or write
+                        if "R" in i:
+                            sum_ = sum(ele[i])
+                            len_ = len(ele[i])
+                            avg = sum_/len_
+                            print(f"Avg over interation for buf{i} : {avg}")
+                            sum_over_tile_rd = sum_over_tile_rd + sum_
+                            no_read_tx = no_read_tx + len_
+                        elif "W" in i:
+                            sum_ = sum(ele[i])
+                            len_ = len(ele[i])
+                            avg = sum_/len_
+                            print(f"Avg over interation for buf{i} : {avg}")
+                            sum_over_tile_wr = sum_over_tile_wr + sum_
+                            no_write_tx = no_write_tx + len_
 
         if no_read_tx != 0:
             avg_over_tile_rd = sum_over_tile_rd / no_read_tx
@@ -239,14 +253,14 @@ args = parser.parse_args()
 file_path = args.file
 
 extracted_data = lock_data_extracter(file_path)
+print("Printing extracted Dictionary")
 print(extracted_data)
+print("==============================")
+
 time_dict = get_rd_wr_time(extracted_data)
-
+print("Printing time_dict Dictionary")
 print(time_dict)
-
-
+print("==============================")
 
 print_time_summary(time_dict,"summary")
-
-
 
