@@ -65,8 +65,7 @@ Multiple_Engine/fp32/AIE16_isolated
 Multiple_Engine/FP32
 Multiple_Engine/AIE_ML
 Single_Engine/AIE_ML
-Analytical_Model
-
+__pycache__
 # Everything inside .vscode
 .vscode/
 
