@@ -56,12 +56,16 @@ Multiple_Engine/*/*/sim
 Multiple_Engine/fp32/AIE16/output
 Single_Engine/fp32/work_aie/*
 Single_Engine/fp32/sim/*
-
+Multiple_Engine/fp32/AIE16_nocompute
+Multiple_Engine/fp32/AIE16_nocompute_noPLtoAIE_COMM
+Multiple_Engine/fp32/AIE16_nocompute_noMMtypeKernel
+Multiple_Engine/fp32/AIE16_nocompute_noMMtypeKernel_noCascade
+Multiple_Engine/fp32/AIE16_isolated
 # Keep the previous compilation done inside FP32 folder as is 
 Multiple_Engine/FP32
 Multiple_Engine/AIE_ML
 Single_Engine/AIE_ML
-
+Analytical_Model
 
 # Everything inside .vscode
 .vscode/
