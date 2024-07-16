@@ -28,9 +28,9 @@ KERNEL_XO :=$(TEMP_DIR)/dma0.xo
 GRAPH   := aie/aie_top_all.cpp
 LIBADF  = libadf.a
 AIE_WORK_DIR = $(BUILD_DIR_MAIN)/Work_AIE
-AIE_SIM_DIR = simulation/aiesim
+AIE_SIM_DIR = sim/aiesim
 AIE_CMPL_CMD = aiecompiler -platform=${PLATFORM} --target=hw --stacksize=1024 --pl-register-threshold=250 --pl-freq=230  -include="./aie" -include="./aie/layer0"  --constraints ./aie_top_all_aie_mapped.aiecst --disable-transform-broadcast-split=false -workdir=./$(AIE_WORK_DIR) ${GRAPH} --output-archive=$(EXEC_DIR)/$(LIBADF)
-AIE_SIM_CMD = aiesimulator --pkg-dir=./$(AIE_WORK_DIR) --dump-vcd $(AIE_SIM_DIR)foo --profile
+AIE_SIM_CMD = aiesimulator --pkg-dir=./$(AIE_WORK_DIR) --dump-vcd $(AIE_SIM_DIR)/foo --profile -o $(AIE_SIM_DIR)
 AIE_HOSTEXE = aie_control_xrt.o
 
 EMU_CMD = ./launch_hw_emu.sh
@@ -101,15 +101,15 @@ guard-PLATFORM_REPO_PATHS:
 
 all: aie kernels build host package
 
-aie: guard-PLATFORM_REPO_PATHS ${LIBADF}
-${LIBADF}: ${GRAPH}
+aie: guard-PLATFORM_REPO_PATHS $(EXEC_DIR)/${LIBADF}
+$(EXEC_DIR)/${LIBADF}: ${GRAPH}
 	# @rm -rf $(AIE_WORK_DIR) $(EXEC_DIR)/libadf.a
 	@mkdir -p $(AIE_WORK_DIR)
 	@mkdir -p $(EXEC_DIR)
 	time ${AIE_CMPL_CMD}
 	@echo "COMPLETE: aie success."
 
-aiesim: ${LIBADF}
+aiesim: $(EXEC_DIR)/${LIBADF}
 	${AIE_SIM_CMD}
 	@echo "COMPLETE: aiesim success."
 
