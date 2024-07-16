@@ -45,7 +45,7 @@ void mm1_kernel0_L0(input_window_float* __restrict matA,
                 C00.mac(A0,B0);
             }
 
-            aie::store_v(pC, C00.to_vector<float>(MMUL::size_C)); pC+=MMUL::size_C;
+            aie::store_v(pC, C00.to_vector<float>()); pC+=MMUL::size_C;
         }
     }
 }
