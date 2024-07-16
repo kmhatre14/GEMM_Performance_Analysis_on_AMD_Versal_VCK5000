@@ -68,8 +68,11 @@ Analytical_Model/CHARM/matmul_model.py
 # Keep the previous compilation done inside FP32 folder as is 
 Multiple_Engine/FP32
 Multiple_Engine/AIE_ML
-Single_Engine/AIE_ML
+Single_Engine/AIE_ML/Vitis-Tutorials
 __pycache__
+Single_Engine/AIE_ML/fp32/work_aie
+Single_Engine/AIE_ML/fp32/.Xil
+
 # Everything inside .vscode
 .vscode/
 
