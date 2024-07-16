@@ -62,7 +62,7 @@ void mm1_kernel0_L0(input_window_float* __restrict matA,
             }
 
             // Store the results into C's tile
-            auto vc=mvc.to_vector<float>(MMUL::size_C);
+            auto vc=mvc.to_vector<float>();
             window_write(matC,vc.extract<4>(0));
             window_incr_v32(matC,1);
             window_write(matC,vc.extract<4>(1));
