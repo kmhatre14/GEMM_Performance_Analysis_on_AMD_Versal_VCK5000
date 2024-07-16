@@ -61,6 +61,10 @@ Multiple_Engine/fp32/AIE16_nocompute_noPLtoAIE_COMM
 Multiple_Engine/fp32/AIE16_nocompute_noMMtypeKernel
 Multiple_Engine/fp32/AIE16_nocompute_noMMtypeKernel_noCascade
 Multiple_Engine/fp32/AIE16_isolated
+Multiple_Engine/fp32/AIE16_PLIO
+MAXEVA
+Analytical_Model/CHARM/matmul_model.py
+
 # Keep the previous compilation done inside FP32 folder as is 
 Multiple_Engine/FP32
 Multiple_Engine/AIE_ML
