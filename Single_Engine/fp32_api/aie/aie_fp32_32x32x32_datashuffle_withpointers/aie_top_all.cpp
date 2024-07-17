@@ -41,7 +41,7 @@ connect<> net_out0_L0 (mm_graph0.out[0], platform.sink[0]);
 int main(int argc, char** argv) {
     std::cout << "Modifying the simulation env to simulate just one 32x32x32 MatA * MatB computation.!!";
     mm_graph0.init();
-    mm_graph0.run(1);
+    mm_graph0.run(4);
     mm_graph0.end();
     return 0;
 }
