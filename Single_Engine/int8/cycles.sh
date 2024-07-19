@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Set the directory where the text files are located
-DIRECTORY="/home/local/ASURITE/vmulleti/Desktop/NCHARM/CHARM/int8"
+DIRECTORY="/mnt/vault0/vmulleti/Versal_Perf_Analysis/Versal_ACAP_Analysis/Single_Engine/int8"
 
 # Find all subdirectories whose names start with "aie_sim_aie_int8_"
 subdirs=$(find "$DIRECTORY" -type d -name 'aie_sim_aie_int8_*')

@@ -4,7 +4,7 @@
 pattern="Cycle count details for function mm7_kernel0_L0 _Z14mm7_kernel0_L0P12input_windowIaES1_P13output_windowIaE"
 
 # Directory where you want to start the search
-search_dir="/home/local/ASURITE/vmulleti/Desktop/NCHARM/CHARM/int8"
+search_dir="/mnt/vault0/vmulleti/Versal_Perf_Analysis/Versal_ACAP_Analysis/Single_Engine/int8/sim"
 
 # Log file to store the output
 log_file="search_results.log"
