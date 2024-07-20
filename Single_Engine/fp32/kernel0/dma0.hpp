@@ -17,13 +17,13 @@
 #define W1 32
 #define W2 32
 #define A 1
-#define B 4
-#define C 4
+#define B 1
+#define C 1
 #define X 1
 #define Y 1
 #define Z 1
-#define PACK_IN 4
-#define PACK_OUT 4
+#define PACK_IN 1
+#define PACK_OUT 1
 
 const int M =H1*A*X;
 const int K =W1*B*Y;
