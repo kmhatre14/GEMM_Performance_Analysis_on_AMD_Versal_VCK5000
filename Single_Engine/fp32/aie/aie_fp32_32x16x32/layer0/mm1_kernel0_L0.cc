@@ -41,10 +41,10 @@ void mm1_kernel0_L0(input_window_float* __restrict matA,
 			else{
 				jump=L0_h1;
 			}
-			for (unsigned int k=0;k<L0_boundary_k;k++)
-			chess_prepare_for_pipelining
-			chess_loop_range(L0_boundary_k,)
-			{
+			// for (unsigned int k=0;k<L0_boundary_k;k++)
+			// chess_prepare_for_pipelining
+			// chess_loop_range(L0_boundary_k,)
+			// {
 				acc0 = fpmac(acc0,buf_matA,0,0x76543210,ext_w(buf_matB,0),0,0x0); 
 				buf_matA = upd_w(buf_matA,1,window_read_v8(matA));
 				window_incr(matA,L0_h1);
@@ -95,7 +95,7 @@ void mm1_kernel0_L0(input_window_float* __restrict matA,
 				acc1 = fpmac(acc1,buf_matA,8,0x76543210,ext_w(buf_matB,1),7,0x0);
 				buf_matB = upd_v(buf_matB,1,window_read_v4(matB));
 				window_decr(matB,L0_jump_B0);
-			}
+			// }
 			acc0 = fpmac(acc0,buf_matA,0,0x76543210,ext_w(buf_matB,0),0,0x0); 
 			buf_matA = upd_w(buf_matA,1,window_read_v8(matA));
 			window_incr(matA,L0_h1);

@@ -65,12 +65,12 @@
         {
             "Name": "LHS_in0_L0",
             "Site": "AIE_PL_X22Y0",
-            "Bel": "AIE_PL_S_AXIS_2"
+            "Bel": "AIE_PL_S_AXIS_4"
         },
         {
             "Name": "RHS_in0_L0",
             "Site": "AIE_PL_X22Y0",
-            "Bel": "AIE_PL_S_AXIS_0"
+            "Bel": "AIE_PL_S_AXIS_6"
         },
         {
             "Name": "mm_graph0.mm_0_0.mm[0]",
@@ -193,11 +193,11 @@
                 },
                 {
                     "Key": "fullSize",
-                    "Val": "INT 4096"
+                    "Val": "INT 2048"
                 },
                 {
                     "Key": "size",
-                    "Val": "INT 4096"
+                    "Val": "INT 2048"
                 },
                 {
                     "Key": "dataSplits",
@@ -266,11 +266,11 @@
                 },
                 {
                     "Key": "fullSize",
-                    "Val": "INT 4096"
+                    "Val": "INT 2048"
                 },
                 {
                     "Key": "size",
-                    "Val": "INT 4096"
+                    "Val": "INT 2048"
                 },
                 {
                     "Key": "dataSplits",
@@ -465,11 +465,11 @@
                 },
                 {
                     "Key": "fullSize",
-                    "Val": "INT 4096"
+                    "Val": "INT 2048"
                 },
                 {
                     "Key": "size",
-                    "Val": "INT 4096"
+                    "Val": "INT 2048"
                 },
                 {
                     "Key": "dataSplits",
@@ -534,11 +534,11 @@
                 },
                 {
                     "Key": "fullSize",
-                    "Val": "INT 4096"
+                    "Val": "INT 2048"
                 },
                 {
                     "Key": "size",
-                    "Val": "INT 4096"
+                    "Val": "INT 2048"
                 },
                 {
                     "Key": "dataSplits",

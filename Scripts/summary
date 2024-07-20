@@ -1,0 +1,4 @@
+Tile,PL_Read(sum),PL_Read(avg),PL_Write(sum),PL_Write(avg)
+"Tile(24,1)",8937600,4468800.0,0,0
+"Tile(23,1)",8916000,4458000.0,0,0
+"Tile(23,2)",26871200,26871200.0,0,0
