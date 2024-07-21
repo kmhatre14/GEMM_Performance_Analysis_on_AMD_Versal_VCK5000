@@ -61,7 +61,9 @@ Multiple_Engine/fp32/AIE16_nocompute_noPLtoAIE_COMM
 Multiple_Engine/fp32/AIE16_nocompute_noMMtypeKernel
 Multiple_Engine/fp32/AIE16_nocompute_noMMtypeKernel_noCascade
 Multiple_Engine/fp32/AIE16_isolated
-Multiple_Engine/fp32/AIE16_PLIO
+Multiple_Engine/fp32/AIE16_PLIO/sim_*
+
+
 MAXEVA
 Analytical_Model/CHARM/matmul_model.py
 Single_Engine/*/x86simulator_output
@@ -95,3 +97,8 @@ Single_Engine/fp32_HW_sw_emu
 Multiple_Engine/fp32/AIE16_sw_emu
 Single_Engine/exp_output_hw_fp32_hw_intrinsic
 Multiple_Engine/vck5000_runScript.sh
+Single_Engine/int8/cfg
+Single_Engine/int8/emulation_data
+Single_Engine/int8/launch_hw_emu.sh
+Single_Engine/int8/pmc_args.txt
+Single_Engine/int8/qemu_args.txt
