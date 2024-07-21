@@ -15,8 +15,8 @@ XCLBIN   = ${PLATFORM_NAME}${TARGET}.xsa
 
 HOST_EXE = hostexe
 HOST_SRCS := ./host/host.cpp
-BUILD_DIR_MAIN = build/$(TARGET)
-EXEC_DIR = output_$(TARGET)
+BUILD_DIR_MAIN = build/$(aie_kernel_config)_$(TARGET)
+EXEC_DIR = output/$(aie_kernel_config)_$(TARGET)
 
 FINAL_XCLBIN=mm_${TARGET}.xclbin
 TEMP_DIR := ./$(BUILD_DIR_MAIN)/dma0.$(TARGET).${PLATFORM_NAME}
@@ -28,7 +28,7 @@ GRAPH   := aie/$(aie_kernel_config)/aie_top_all.cpp
 LIBADF  = libadf.a
 AIE_WORK_DIR = $(BUILD_DIR_MAIN)/Work_AIE
 AIE_SIM_DIR = simulation/aiesim
-AIE_CMPL_CMD = aiecompiler -platform=${PLATFORM} --stacksize=1024 --pl-register-threshold=250 --pl-freq=230  -include="./aie/$(aie_kernel_config)" -include="./aie/$(aie_kernel_config)/layer0"  --constraints ./aie_top_all_aie_mapped.aiecst --disable-transform-broadcast-split=false -workdir=./$(AIE_WORK_DIR) ${GRAPH} --output-archive=$(EXEC_DIR)/$(LIBADF)
+AIE_CMPL_CMD = aiecompiler -platform=${PLATFORM} --stacksize=1024 --pl-register-threshold=250 --pl-freq=230  -include="./aie/$(aie_kernel_config)" -include="./aie/$(aie_kernel_config)/layer0"  --disable-transform-broadcast-split=false -workdir=./$(AIE_WORK_DIR) ${GRAPH} --output-archive=$(EXEC_DIR)/$(LIBADF)
 AIE_SIM_CMD = aiesimulator --pkg-dir=./work_aie/Work_$(aie_kernel_config) --dump-vcd sim/aie_sim_$(aie_kernel_config)/$(aie_kernel_config) --profile -o sim/aie_sim_$(aie_kernel_config)
 AIE_HOSTEXE = aie_control_xrt.o
 
