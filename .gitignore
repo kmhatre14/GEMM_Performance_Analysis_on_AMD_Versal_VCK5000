@@ -64,7 +64,7 @@ Multiple_Engine/fp32/AIE16_isolated
 Multiple_Engine/fp32/AIE16_PLIO
 MAXEVA
 Analytical_Model/CHARM/matmul_model.py
-
+Single_Engine/*/x86simulator_output
 # Keep the previous compilation done inside FP32 folder as is 
 Multiple_Engine/FP32
 Multiple_Engine/AIE_ML
@@ -88,9 +88,10 @@ compile_commands.json
 *.csv
 *ISS_RPC_SERVER_PORT*
 *pl_sample_counts*
-
+.gitignore
 #extra junk files 
 Single_Engine/fp32_HW
 Single_Engine/fp32_HW_sw_emu
 Multiple_Engine/fp32/AIE16_sw_emu
 Single_Engine/exp_output_hw_fp32_hw_intrinsic
+Multiple_Engine/vck5000_runScript.sh
