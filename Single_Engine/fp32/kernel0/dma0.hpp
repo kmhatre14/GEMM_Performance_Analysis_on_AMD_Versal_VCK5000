@@ -60,5 +60,10 @@ typedef union{
     float data_float;
     unsigned int data_uint;
 } fp_int;
-
+#ifdef __SW_EMU__
+extern "C" {
+void dma0(ap_uint<AXI_WIDTH_A>* ina, ap_uint<AXI_WIDTH_B>* inb, ap_uint<AXI_WIDTH_C>* out0,
+          axis_stream& txA0, axis_stream& txB0, axis_stream& rxC0, const int TX, const int TY, const int TZ);
+}
+#endif
 #endif
