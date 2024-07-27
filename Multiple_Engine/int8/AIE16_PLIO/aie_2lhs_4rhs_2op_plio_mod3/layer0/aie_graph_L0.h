@@ -11,19 +11,16 @@ template <int COL_OFFSET, int ROW_OFFSET>
 class mm_k7_B4_L0: public graph {
   private:
     kernel mm[L0_NUM_KERNEL];
-    adf::pktsplit<L0_NUM_KERNELS_PER_PAC>  sp_a0[L0_NUM_PACK_IN];
     adf::pktsplit<L0_NUM_KERNELS_PER_PAC>  sp_b0[L0_NUM_PACK_IN];
 
   public:
-    port<input> in0[L0_NUM_PACK_IN],in1[L0_NUM_PACK_IN];
+    port<input> in0[4],in1[L0_NUM_PACK_IN];
     port<output> out;
     
     mm_k7_B4_L0() {
       
       for (int j=0; j<L0_NUM_PACK_IN; j++){
-        sp_a0[j]  = adf::pktsplit<L0_NUM_KERNELS_PER_PAC>::create();
 		    sp_b0[j]  = adf::pktsplit<L0_NUM_KERNELS_PER_PAC>::create();
-		    adf::connect< adf::pktstream > (in0[j], sp_a0[j].in[0]);
 		    adf::connect< adf::pktstream > (in1[j], sp_b0[j].in[0]);
       }
 
@@ -82,9 +79,12 @@ class mm_k7_B4_L0: public graph {
         }
       }
 
+      for (int i=0; i<4;i++){
+        connect<pktstream,window<L0_h1*L0_w1*L0_Byte>>(in0[i], mm[i].in[0]);
+      }
+	  
       for (int j=0; j<L0_NUM_PACK_IN; j++){
         for (int i=0; i<L0_NUM_KERNELS_PER_PAC;i++){
-          connect<pktstream,window<L0_h1*L0_w1*L0_Byte>>(sp_a0[j].out[i], mm[i+j*L0_NUM_KERNELS_PER_PAC].in[0]);
           connect<pktstream,window<L0_w1*L0_w2*L0_Byte>>(sp_b0[j].out[i], mm[i+j*L0_NUM_KERNELS_PER_PAC].in[1]);
         }
       }
