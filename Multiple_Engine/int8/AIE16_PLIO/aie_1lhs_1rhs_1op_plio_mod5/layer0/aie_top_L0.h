@@ -16,7 +16,7 @@ public:
     input_port in_lhs[1][1];
     input_port in_rhs[1][1];
     adf::pktmerge<4>  mg_out[1];
-	output_port out[L0_NUM_PACK_OUT];
+	output_port out[1];
 
     adf::pktsplit<16> sp_a0_top;
     adf::pktsplit<16> sp_b0_top;

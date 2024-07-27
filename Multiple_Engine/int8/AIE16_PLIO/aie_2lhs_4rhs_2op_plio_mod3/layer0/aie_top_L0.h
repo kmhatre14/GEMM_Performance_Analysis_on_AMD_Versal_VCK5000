@@ -13,12 +13,14 @@ const int L0_NUM_PACK_OUT=L0_NUM_INSTANCES/2;
 
 class mm_x2_x4_x2_graph0 : public adf::graph {
 public:
-    input_port in_lhs[(L0_A*L0_C/L0_A_BRO)][L0_NUM_PACK_IN];
+    input_port in_lhs[2];
     input_port in_rhs[(L0_A*L0_C/L0_C_BRO)][L0_NUM_PACK_IN];
     adf::pktmerge<2>  mg_out[L0_NUM_PACK_OUT];
 	output_port out[L0_NUM_PACK_OUT];
 
-    
+    adf::pktsplit<8> sp_a00_top;
+    adf::pktsplit<8> sp_a01_top;
+
     mm_k7_B4_L0 <21, 0>  mm_0_0;
     mm_k7_B4_L0 <24, 1>  mm_0_1;
     mm_k7_B4_L0 <25, 0>  mm_1_0;
@@ -32,16 +34,18 @@ public:
             mg_out[i] = adf::pktmerge<2>::create();
         }
 
-        connect<pktstream,window<L0_h1*L0_w1*L0_Byte>>(in_lhs[0][0],mm_0_0.in0[0]);
-        connect<pktstream,window<L0_h1*L0_w1*L0_Byte>>(in_lhs[0][1],mm_0_0.in0[1]);
-        connect<pktstream,window<L0_h1*L0_w1*L0_Byte>>(in_lhs[0][0],mm_0_1.in0[0]);
-        connect<pktstream,window<L0_h1*L0_w1*L0_Byte>>(in_lhs[0][1],mm_0_1.in0[1]);
-        connect<pktstream,window<L0_h1*L0_w1*L0_Byte>>(in_lhs[0][0],mm_1_0.in0[0]);
-        connect<pktstream,window<L0_h1*L0_w1*L0_Byte>>(in_lhs[0][1],mm_1_0.in0[1]);
-        connect<pktstream,window<L0_h1*L0_w1*L0_Byte>>(in_lhs[0][0],mm_1_1.in0[0]);
-        connect<pktstream,window<L0_h1*L0_w1*L0_Byte>>(in_lhs[0][1],mm_1_1.in0[1]);
-        
+        sp_a00_top  = adf::pktsplit<8>::create();
+        sp_a01_top  = adf::pktsplit<8>::create();
+        adf::connect< adf::pktstream > (in_lhs[0], sp_a00_top.in[0]);
+        adf::connect< adf::pktstream > (in_lhs[1], sp_a01_top.in[0]);
 
+        for (unsigned int i=0; i<4; i++) {
+            connect<pktstream,pktstream>(sp_a00_top.out[i],mm_0_0.in0[i]);
+            connect<pktstream,pktstream>(sp_a00_top.out[i+4],mm_1_0.in0[i]);
+            connect<pktstream,pktstream>(sp_a01_top.out[i],mm_0_1.in0[i]);
+            connect<pktstream,pktstream>(sp_a01_top.out[i+4],mm_1_1.in0[i]);
+        }
+		
         connect<pktstream,window<L0_w1*L0_w2*L0_Byte>>(in_rhs[0][0],mm_0_0.in1[0]);
         connect<pktstream,window<L0_w1*L0_w2*L0_Byte>>(in_rhs[0][1],mm_0_0.in1[1]);
         connect<pktstream,window<L0_w1*L0_w2*L0_Byte>>(in_rhs[0][0],mm_1_0.in1[0]);
