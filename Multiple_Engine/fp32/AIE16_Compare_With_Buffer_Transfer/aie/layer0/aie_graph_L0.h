@@ -38,10 +38,8 @@ class mm_k1_B4_L0: public graph {
         }
         
         else{
-          // mm[i] = kernel::create(mm1_kernel1_L0);
-          // source(mm[i]) = "mm1_kernel1_L0.cc";
-          mm[i] = kernel::create(mm1_kernel2_L0);
-          source(mm[i]) = "mm1_kernel2_L0.cc";
+          mm[i] = kernel::create(mm1_kernel1_L0);
+          source(mm[i]) = "mm1_kernel1_L0.cc";
         }
         
         runtime<ratio>(mm[i]) = 1;
@@ -63,8 +61,10 @@ class mm_k1_B4_L0: public graph {
             address(COL_OFFSET+i, ROW_OFFSET, 0x6000)};
           if(i==L0_NUM_KERNEL-1){
             location<buffer>(mm[i].out[0]) =
-            { address(COL_OFFSET+i-1, ROW_OFFSET, 0x5000), 
-              address(COL_OFFSET+i-1, ROW_OFFSET, 0x7000)};
+            // { address(COL_OFFSET+i-1, ROW_OFFSET, 0x5000), 
+            //   address(COL_OFFSET+i-1, ROW_OFFSET, 0x7000)};
+            { address(COL_OFFSET+i, ROW_OFFSET, 0x5000), 
+              address(COL_OFFSET+i, ROW_OFFSET, 0x7000)};
           }  
           location<stack>(mm[i]) = address(COL_OFFSET+i, ROW_OFFSET, 0x3000);
         }
@@ -77,8 +77,10 @@ class mm_k1_B4_L0: public graph {
             address(COL_OFFSET-i, ROW_OFFSET, 0x6000)};
           if(i==L0_NUM_KERNEL-1){
             location<buffer>(mm[i].out[0]) =
-            { address(COL_OFFSET-i+1, ROW_OFFSET, 0x5000), 
-              address(COL_OFFSET-i+1, ROW_OFFSET, 0x7000)};
+            // { address(COL_OFFSET-i+1, ROW_OFFSET, 0x5000), 
+            //   address(COL_OFFSET-i+1, ROW_OFFSET, 0x7000)}
+            { address(COL_OFFSET-i, ROW_OFFSET, 0x5000), 
+              address(COL_OFFSET-i, ROW_OFFSET, 0x7000)};
           }
           location<stack>(mm[i]) = address(COL_OFFSET-i, ROW_OFFSET, 0x3000);
         }

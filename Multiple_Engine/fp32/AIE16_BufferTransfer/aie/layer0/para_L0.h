@@ -2,8 +2,8 @@
 #define PARA_L0_H
 #include <adf/stream/types.h>
 const int L0_Byte=4;
-const int L0_NUM_KERNEL=2;
-const int L0_NUM_KERNELS_PER_PAC=2;
+const int L0_NUM_KERNEL=4;
+const int L0_NUM_KERNELS_PER_PAC=4;
 const int L0_NUM_PACK_IN=L0_NUM_KERNEL/L0_NUM_KERNELS_PER_PAC;
 const int L0_h1=32;
 const int L0_w1=32;
