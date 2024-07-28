@@ -61,11 +61,6 @@ class mm_k1_B4_L0: public graph {
           location<buffer>(mm[i].in[1]) =
           { address(COL_OFFSET+i, ROW_OFFSET, 0x4000), 
             address(COL_OFFSET+i, ROW_OFFSET, 0x6000)};
-          if (i==L0_NUM_KERNEL-1){
-            location<buffer>(mm[i].out[0]) =
-            { address(COL_OFFSET+i-1, ROW_OFFSET, 0x5000), 
-              address(COL_OFFSET+i-1, ROW_OFFSET, 0x7000)};
-          }
           location<stack>(mm[i]) = address(COL_OFFSET+i, ROW_OFFSET, 0x3000);
         }
         else{
@@ -75,13 +70,36 @@ class mm_k1_B4_L0: public graph {
           location<buffer>(mm[i].in[1]) =
           { address(COL_OFFSET-i, ROW_OFFSET, 0x4000), 
             address(COL_OFFSET-i, ROW_OFFSET, 0x6000)};
-          if (i==L0_NUM_KERNEL-1){
-            location<buffer>(mm[i].out[0]) =
-            { address(COL_OFFSET-i+1, ROW_OFFSET, 0x5000), 
-              address(COL_OFFSET-i+1, ROW_OFFSET, 0x7000)};
-          }
           location<stack>(mm[i]) = address(COL_OFFSET-i, ROW_OFFSET, 0x3000);
         }
+      }
+      if ((ROW_OFFSET%2)==0){
+        location<buffer>(mm[0].out[0]) =
+        { address(COL_OFFSET, ROW_OFFSET, 0x5000), 
+          address(COL_OFFSET, ROW_OFFSET, 0x7000)};
+        location<buffer>(mm[1].out[0]) =
+        { address(COL_OFFSET+1, ROW_OFFSET, 0x5000), 
+          address(COL_OFFSET+1, ROW_OFFSET, 0x7000)};
+        location<buffer>(mm[2].out[0]) =
+        { address(COL_OFFSET+2, ROW_OFFSET, 0x5000), 
+          address(COL_OFFSET+2, ROW_OFFSET, 0x7000)};
+        location<buffer>(mm[3].out[0]) =
+        { address(COL_OFFSET+3, ROW_OFFSET, 0x5000), 
+          address(COL_OFFSET+3, ROW_OFFSET, 0x7000)};
+      }
+      else{
+        location<buffer>(mm[0].out[0])=
+        { address(COL_OFFSET, ROW_OFFSET, 0x5000), 
+          address(COL_OFFSET, ROW_OFFSET, 0x7000)};
+        location<buffer>(mm[1].out[0]) =
+        { address(COL_OFFSET-1, ROW_OFFSET, 0x5000), 
+          address(COL_OFFSET-1, ROW_OFFSET, 0x7000)};
+        location<buffer>(mm[2].out[0]) =
+        { address(COL_OFFSET-2, ROW_OFFSET, 0x5000), 
+          address(COL_OFFSET-2, ROW_OFFSET, 0x7000)};
+        location<buffer>(mm[3].out[0]) =
+        { address(COL_OFFSET-3, ROW_OFFSET, 0x5000), 
+          address(COL_OFFSET-3, ROW_OFFSET, 0x7000)};
       }
 
       for (int j=0; j<L0_NUM_PACK_IN; j++){
