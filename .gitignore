@@ -102,3 +102,13 @@ Single_Engine/int8/emulation_data
 Single_Engine/int8/launch_hw_emu.sh
 Single_Engine/int8/pmc_args.txt
 Single_Engine/int8/qemu_args.txt
+Single_Engine/int8/.ipcache
+Single_Engine/int8/eff.sh
+Single_Engine/int8/xilinx:pcie-hw-em:7v3:1.0-0-xilinx_vck5000_gen4x8_qdma_2_202220_1hw_emu.protoinst
+Single_Engine/int8/xilinx:pcie-hw-em:7v3:1.0-0-xilinx_vck5000_gen4x8_qdma_2_202220_1hw_emu.wcfg
+Single_Engine/int8/xilinx:pcie-hw-em:7v3:1.0-0-xilinx_vck5000_gen4x8_qdma_2_202220_1hw_emu.wdb
+Single_Engine/int8/aiesim_options.txt
+Single_Engine/int8/add_wave.tcl
+Single_Engine/int8/eff.sh
+Multiple_Engine/int8/AIE16/simulation
+Multiple_Engine/int8/AIE16/aiesimulator_output
