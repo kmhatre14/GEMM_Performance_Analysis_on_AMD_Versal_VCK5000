@@ -117,8 +117,8 @@ int main(int argc, char** argv) {
                 DataInput0[pos]= 0;
             }
             else{
-                DataInput0[pos]= (int8_t)(rand()%5);
-                // DataInput0[pos]= (int8_t)1;
+                // DataInput0[pos]= (int8_t)(rand()%5);
+                DataInput0[pos]= (int8_t)1;
             }
             
         }
@@ -131,8 +131,8 @@ int main(int argc, char** argv) {
                 DataInput1[pos]= 0;
             }
             else{
-                DataInput1[pos]= (int8_t)(rand()%5);
-                // DataInput1[pos]= (int8_t)1;
+                // DataInput1[pos]= (int8_t)(rand()%5);
+                DataInput1[pos]= (int8_t)1;
             }
             
         }

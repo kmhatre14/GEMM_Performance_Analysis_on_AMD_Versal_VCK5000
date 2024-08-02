@@ -184,32 +184,32 @@ void storeC(axis_stream_C& dataC_out, ap_uint<BUFF_WIDTH> c_buf[A*C/PACK_OUT][2]
                 }
             }
 
-            for(int x = 0; x < X*Z; x++){
-                for(int pack=0;pack<PACK_OUT;pack++){
-                    for(int w2=0;w2<(W2/2);w2++){
-                    #pragma HLS PIPELINE II = 1
-                    #pragma HLS dependence variable=c_buf type=intra false
-                        for(int a = 0; a < (A*C/PACK_OUT); a++){
-                            c_buf[a][0][x][pack][w2]=0; 
-                            c_buf[a][0][x][pack][w2+32 ]=0;
-                            c_buf[a][0][x][pack][w2+64 ]=0; 
-                            c_buf[a][0][x][pack][w2+96 ]=0;
-                            c_buf[a][0][x][pack][w2+128]=0; 
-                            c_buf[a][0][x][pack][w2+160]=0;
-                            c_buf[a][0][x][pack][w2+192]=0; 
-                            c_buf[a][0][x][pack][w2+224]=0;
-                            c_buf[a][1][x][pack][w2]=0; 
-                            c_buf[a][1][x][pack][w2+32 ]=0;
-                            c_buf[a][1][x][pack][w2+64 ]=0; 
-                            c_buf[a][1][x][pack][w2+96 ]=0;
-                            c_buf[a][1][x][pack][w2+128]=0; 
-                            c_buf[a][1][x][pack][w2+160]=0;
-                            c_buf[a][1][x][pack][w2+192]=0; 
-                            c_buf[a][1][x][pack][w2+224]=0;
-                        }
-                    }
-                }
-            }
+            // for(int x = 0; x < X*Z; x++){
+            //     for(int pack=0;pack<PACK_OUT;pack++){
+            //         for(int w2=0;w2<(W2/2);w2++){
+            //         #pragma HLS PIPELINE II = 1
+            //         #pragma HLS dependence variable=c_buf type=intra false
+            //             for(int a = 0; a < (A*C/PACK_OUT); a++){
+            //                 c_buf[a][0][x][pack][w2]=0; 
+            //                 c_buf[a][0][x][pack][w2+32 ]=0;
+            //                 c_buf[a][0][x][pack][w2+64 ]=0; 
+            //                 c_buf[a][0][x][pack][w2+96 ]=0;
+            //                 c_buf[a][0][x][pack][w2+128]=0; 
+            //                 c_buf[a][0][x][pack][w2+160]=0;
+            //                 c_buf[a][0][x][pack][w2+192]=0; 
+            //                 c_buf[a][0][x][pack][w2+224]=0;
+            //                 c_buf[a][1][x][pack][w2]=0; 
+            //                 c_buf[a][1][x][pack][w2+32 ]=0;
+            //                 c_buf[a][1][x][pack][w2+64 ]=0; 
+            //                 c_buf[a][1][x][pack][w2+96 ]=0;
+            //                 c_buf[a][1][x][pack][w2+128]=0; 
+            //                 c_buf[a][1][x][pack][w2+160]=0;
+            //                 c_buf[a][1][x][pack][w2+192]=0; 
+            //                 c_buf[a][1][x][pack][w2+224]=0;
+            //             }
+            //         }
+            //     }
+            // }
 
         }
     }
@@ -492,22 +492,22 @@ if (enable){
                         data_temp[0][3].high0=tmp.data(119,112);
                         data_temp[0][3].high1=tmp.data(127,120);
                         
-                        d0.low0  =c_buf[0][tile_x][ID][i](7,0)  ;
-                        d0.low1  =c_buf[0][tile_x][ID][i](15,8) ;
-                        d0.high0 =c_buf[0][tile_x][ID][i](23,16);
-                        d0.high1 =c_buf[0][tile_x][ID][i](31,24);
-                        d1.low0  =c_buf[0][tile_x][ID][i](39,32);
-                        d1.low1  =c_buf[0][tile_x][ID][i](47,40);
-                        d1.high0 =c_buf[0][tile_x][ID][i](55,48);
-                        d1.high1 =c_buf[0][tile_x][ID][i](63,56);
-                        d2.low0  =c_buf[1][tile_x][ID][i](7,0)  ;
-                        d2.low1  =c_buf[1][tile_x][ID][i](15,8) ;
-                        d2.high0 =c_buf[1][tile_x][ID][i](23,16);
-                        d2.high1 =c_buf[1][tile_x][ID][i](31,24);
-                        d3.low0  =c_buf[1][tile_x][ID][i](39,32);
-                        d3.low1  =c_buf[1][tile_x][ID][i](47,40);
-                        d3.high0 =c_buf[1][tile_x][ID][i](55,48);
-                        d3.high1 =c_buf[1][tile_x][ID][i](63,56);
+                        // d0.low0  =c_buf[0][tile_x][ID][i](7,0)  ;
+                        // d0.low1  =c_buf[0][tile_x][ID][i](15,8) ;
+                        // d0.high0 =c_buf[0][tile_x][ID][i](23,16);
+                        // d0.high1 =c_buf[0][tile_x][ID][i](31,24);
+                        // d1.low0  =c_buf[0][tile_x][ID][i](39,32);
+                        // d1.low1  =c_buf[0][tile_x][ID][i](47,40);
+                        // d1.high0 =c_buf[0][tile_x][ID][i](55,48);
+                        // d1.high1 =c_buf[0][tile_x][ID][i](63,56);
+                        // d2.low0  =c_buf[1][tile_x][ID][i](7,0)  ;
+                        // d2.low1  =c_buf[1][tile_x][ID][i](15,8) ;
+                        // d2.high0 =c_buf[1][tile_x][ID][i](23,16);
+                        // d2.high1 =c_buf[1][tile_x][ID][i](31,24);
+                        // d3.low0  =c_buf[1][tile_x][ID][i](39,32);
+                        // d3.low1  =c_buf[1][tile_x][ID][i](47,40);
+                        // d3.high0 =c_buf[1][tile_x][ID][i](55,48);
+                        // d3.high1 =c_buf[1][tile_x][ID][i](63,56);
 
 
                         // d0.low0  = data_temp[i%2][1].low0       + d0.low0 ;
@@ -527,22 +527,39 @@ if (enable){
                         // d3.high0 = data_temp[(i+1)%2][0].high0  + d3.high0;
                         // d3.high1 = data_temp[(i+1)%2][0].high1  + d3.high1;
 
-                        d0.low0  = data_temp[0][0].low0       + d0.low0 ;
-                        d0.low1  = data_temp[0][0].low1       + d0.low1 ;
-                        d0.high0 = data_temp[0][0].high0      + d0.high0;
-                        d0.high1 = data_temp[0][0].high1      + d0.high1;
-                        d1.low0  = data_temp[0][1].low0       + d1.low0 ;
-                        d1.low1  = data_temp[0][1].low1       + d1.low1 ;
-                        d1.high0 = data_temp[0][1].high0      + d1.high0;
-                        d1.high1 = data_temp[0][1].high1      + d1.high1;
-                        d2.low0  = data_temp[0][2].low0       + d2.low0 ;
-                        d2.low1  = data_temp[0][2].low1       + d2.low1 ;
-                        d2.high0 = data_temp[0][2].high0      + d2.high0;
-                        d2.high1 = data_temp[0][2].high1      + d2.high1;
-                        d3.low0  = data_temp[0][3].low0   + d3.low0 ;
-                        d3.low1  = data_temp[0][3].low1   + d3.low1 ;
-                        d3.high0 = data_temp[0][3].high0  + d3.high0;
-                        d3.high1 = data_temp[0][3].high1  + d3.high1;
+                        // d0.low0  = data_temp[0][0].low0       + d0.low0 ;
+                        // d0.low1  = data_temp[0][0].low1       + d0.low1 ;
+                        // d0.high0 = data_temp[0][0].high0      + d0.high0;
+                        // d0.high1 = data_temp[0][0].high1      + d0.high1;
+                        // d1.low0  = data_temp[0][1].low0       + d1.low0 ;
+                        // d1.low1  = data_temp[0][1].low1       + d1.low1 ;
+                        // d1.high0 = data_temp[0][1].high0      + d1.high0;
+                        // d1.high1 = data_temp[0][1].high1      + d1.high1;
+                        // d2.low0  = data_temp[0][2].low0       + d2.low0 ;
+                        // d2.low1  = data_temp[0][2].low1       + d2.low1 ;
+                        // d2.high0 = data_temp[0][2].high0      + d2.high0;
+                        // d2.high1 = data_temp[0][2].high1      + d2.high1;
+                        // d3.low0  = data_temp[0][3].low0   + d3.low0 ;
+                        // d3.low1  = data_temp[0][3].low1   + d3.low1 ;
+                        // d3.high0 = data_temp[0][3].high0  + d3.high0;
+                        // d3.high1 = data_temp[0][3].high1  + d3.high1;
+
+                        d0.low0  = data_temp[0][0].low0  ;//     + d0.low0 ;
+                        d0.low1  = data_temp[0][0].low1  ;//     + d0.low1 ;
+                        d0.high0 = data_temp[0][0].high0 ;//     + d0.high0;
+                        d0.high1 = data_temp[0][0].high1 ;//     + d0.high1;
+                        d1.low0  = data_temp[0][1].low0  ;//     + d1.low0 ;
+                        d1.low1  = data_temp[0][1].low1  ;//     + d1.low1 ;
+                        d1.high0 = data_temp[0][1].high0 ;//     + d1.high0;
+                        d1.high1 = data_temp[0][1].high1 ;//     + d1.high1;
+                        d2.low0  = data_temp[0][2].low0  ;//     + d2.low0 ;
+                        d2.low1  = data_temp[0][2].low1  ;//     + d2.low1 ;
+                        d2.high0 = data_temp[0][2].high0 ;//     + d2.high0;
+                        d2.high1 = data_temp[0][2].high1 ;//     + d2.high1;
+                        d3.low0  = data_temp[0][3].low0  ;// + d3.low0 ;
+                        d3.low1  = data_temp[0][3].low1  ;// + d3.low1 ;
+                        d3.high0 = data_temp[0][3].high0 ;// + d3.high0;
+                        d3.high1 = data_temp[0][3].high1 ;// + d3.high1;
                         
                         c_buf[0][tile_x][ID][i](7,0)    = d0.low0  ;
                         c_buf[0][tile_x][ID][i](15,8)   = d0.low1  ;
@@ -594,14 +611,14 @@ void compute(axis_stream_A& dataA_out, axis_stream_B& dataB_out, axis_stream_C& 
     ap_uint<BUFF_WIDTH> buff0_C[(C/PACK_OUT)*A][2][Z*X][PACK_OUT][OUT_SIZE_BUFF/2];
     #pragma HLS bind_storage variable=buff0_C type=RAM_T2P impl=BRAM
     #pragma HLS ARRAY_PARTITION variable=buff0_C complete dim=1
-    #pragma HLS ARRAY_PARTITION variable=buff0_C complete dim=2
-    #pragma HLS ARRAY_PARTITION variable=buff0_C block factor=BUFFC_FACTOR dim=5
+    // #pragma HLS ARRAY_PARTITION variable=buff0_C complete dim=2
+    // #pragma HLS ARRAY_PARTITION variable=buff0_C block factor=BUFFC_FACTOR dim=5
 
     ap_uint<BUFF_WIDTH> buff1_C[(C/PACK_OUT)*A][2][Z*X][PACK_OUT][OUT_SIZE_BUFF/2];
     #pragma HLS bind_storage variable=buff1_C type=RAM_T2P impl=BRAM
     #pragma HLS ARRAY_PARTITION variable=buff1_C complete dim=1
-    #pragma HLS ARRAY_PARTITION variable=buff1_C complete dim=2
-    #pragma HLS ARRAY_PARTITION variable=buff1_C block factor=BUFFC_FACTOR dim=5
+    // #pragma HLS ARRAY_PARTITION variable=buff1_C complete dim=2
+    // #pragma HLS ARRAY_PARTITION variable=buff1_C block factor=BUFFC_FACTOR dim=5
 
     const int Total_rd=TX*TY*TZ;
 
