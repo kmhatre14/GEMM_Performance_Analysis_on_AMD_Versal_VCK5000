@@ -11,9 +11,16 @@
 // This is used for the PL Kernels
 #include "xrt.h"
 #include "experimental/xrt_kernel.h"
+// _SW_EMU_ should only be enabled for sw_emu runs. See the make file for more details
+#ifdef __SW_EMU__
+#include "adf/adf_api/XRTConfig.h"
+
+#include "./aie/aie_int8_64x64x64_intrinsic/layer0/aie_top_L0.h"
+mm_x1_x2_x2_graph0 mm_graph0;
+#endif
 using namespace std;
 
-void post_pro(int8_t *Data_hw, std::vector<int8_t> final_result, const int M1, const int N1, const int M){
+void post_pro(int8_t *Data_hw, std::vector<int8_t> &final_result, const int M1, const int N1, const int M){
     for (int n = 0; n < N1; n++) {
         for (int m = 0; m < M1; m++) { 
             int pos0=m+n*M;
@@ -40,8 +47,8 @@ const int H1_0=64;
 const int W1_0=64;
 const int W2_0=64;
 const int A0=1;
-const int B0=2;
-const int C0=2;
+const int B0=1;
+const int C0=1;
 const int X0=1;
 const int Y0=1;
 const int Z0=1;
@@ -110,7 +117,8 @@ int main(int argc, char** argv) {
                 DataInput0[pos]= 0;
             }
             else{
-                DataInput0[pos]= (int8_t)(rand()%5);
+                // DataInput0[pos]= (int8_t)(rand()%5);
+                DataInput0[pos]= (int8_t)1;
             }
             
         }
@@ -123,7 +131,8 @@ int main(int argc, char** argv) {
                 DataInput1[pos]= 0;
             }
             else{
-                DataInput1[pos]= (int8_t)(rand()%5);
+                // DataInput1[pos]= (int8_t)(rand()%5);
+                DataInput1[pos]= (int8_t)1;
             }
             
         }
@@ -162,8 +171,13 @@ int main(int argc, char** argv) {
     for (int i=0;i<iter;i++){
         // start input kernels run handles
         dma_run0 = dma0(in_bohdl0, in_bohdl1,out_bohdl,
-                 nullptr, nullptr, nullptr, nullptr, nullptr,TX0,TY0,TZ0);
+                 nullptr, nullptr,nullptr,TX0,TY0,TZ0);
         
+#ifdef __SW_EMU__
+        auto ghdl0=xrt::graph(device,uuid,"mm_graph0");
+        printf("graph run\n");
+        ghdl0.run(-1);
+#endif
 
         dma_run0.wait();
         }

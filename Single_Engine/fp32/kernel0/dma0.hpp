@@ -17,13 +17,13 @@
 #define W1 32
 #define W2 32
 #define A 1
-#define B 4
-#define C 4
+#define B 1
+#define C 1
 #define X 1
 #define Y 1
 #define Z 1
-#define PACK_IN 4
-#define PACK_OUT 4
+#define PACK_IN 1
+#define PACK_OUT 1
 
 const int M =H1*A*X;
 const int K =W1*B*Y;
@@ -60,5 +60,10 @@ typedef union{
     float data_float;
     unsigned int data_uint;
 } fp_int;
-
+#ifdef __SW_EMU__
+extern "C" {
+void dma0(ap_uint<AXI_WIDTH_A>* ina, ap_uint<AXI_WIDTH_B>* inb, ap_uint<AXI_WIDTH_C>* out0,
+          axis_stream& txA0, axis_stream& txB0, axis_stream& rxC0, const int TX, const int TY, const int TZ);
+}
+#endif
 #endif

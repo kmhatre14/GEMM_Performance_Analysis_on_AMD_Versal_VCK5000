@@ -215,7 +215,7 @@ unsigned int getPacketId(ap_uint<32> header){
 
 template<int NC>
 void sendA(ap_uint<PLIO_WIDTH> a_buf[X*Y][PACK_IN*LEFT_SIZE],
-           axis_stream& txA0, axis_stream& txA1, 
+           axis_stream& txA0, 
            bool enable){
 
 #pragma HLS inline off
@@ -231,59 +231,77 @@ void sendA(ap_uint<PLIO_WIDTH> a_buf[X*Y][PACK_IN*LEFT_SIZE],
         for (int z = 0; z < Z; z++) {
             for (int xy = 0; xy < X*Y; xy++) {//y first then x
                 for (int pack = 0; pack < PACK_IN; pack++){ 
-                    header=generateHeader(0,pack);
+                    // header=generateHeader(0,pack);
                     int position=pack*LEFT_SIZE;
-                    data=a_buf[xy][position];
+                    // data=a_buf[xy][position];
 
-                    data_temp[0][0]=data(31,0);
-                    data_temp[0][1]=data(63,32);
-                    data_temp[0][2]=data(95,64);
-                    data_temp[0][3]=data(127,96);
+                    // data_temp[0][0]=data(31,0);
+                    // data_temp[0][1]=data(63,32);
+                    // data_temp[0][2]=data(95,64);
+                    // data_temp[0][3]=data(127,96);
                     
-                    da(31,0)   = header;
-                    da(63,32)  = data_temp[0][0];
-                    da(95,64)  = data_temp[0][1];
-                    da(127,96) = data_temp[0][2];
+                    // da(31,0)   = header;
+                    // da(63,32)  = data_temp[0][0];
+                    // da(95,64)  = data_temp[0][1];
+                    // da(127,96) = data_temp[0][2];
+                    // da(63,32)  = 1;
+                    // da(95,64)  = 1;
+                    // da(127,96) = 1;
 
-                    tmp.data   = da;
-                    tmp.keep   = -1;
-                    tmp.last   = 0;
+                    // tmp.data   = da;
+                    // tmp.keep   = -1;
+                    // tmp.last   = 0;
                     
-                    txA0.write(tmp);
-                    txA1.write(tmp);
+                    // txA0.write(tmp);
+                    // txA1.write(tmp);
                     
-                    for (int i = 1; i < LEFT_SIZE; i++){ 
+                    for (int i = 0; i < LEFT_SIZE; i++){ 
                     #pragma HLS PIPELINE II = 1
                         int pos=i+position;
                         data = a_buf[xy][pos];
+                        // f_i_d b;
+                        // b.i = data(31,0);
+                        // printf("A  %f \n", b.f);
 
-                        data_temp[i%2][0]=data(31,0);
-                        data_temp[i%2][1]=data(63,32);
-                        data_temp[i%2][2]=data(95,64);
-                        data_temp[i%2][3]=data(127,96);
-                        da(31,0)   = data_temp[(i+1)%2][3];
-                        da(63,32)  = data_temp[i%2][0];
-                        da(95,64)  = data_temp[i%2][1];
-                        da(127,96) = data_temp[i%2][2];
+                        // data_temp[i%2][0]=data(31,0);
+                        // data_temp[i%2][1]=data(63,32);
+                        // data_temp[i%2][2]=data(95,64);
+                        // data_temp[i%2][3]=data(127,96);
+                        // da(31,0)   = data_temp[(i+1)%2][3];
+                        // da(63,32)  = data_temp[i%2][0];
+                        // da(95,64)  = data_temp[i%2][1];
+                        // da(127,96) = data_temp[i%2][2];
+                        // f_i_d a;
+                        // a.f = 1.0;
+                        // da(31,0)   = a.i;
+                        // da(63,32)  = a.i;
+                        // da(95,64)  = a.i;
+                        // da(127,96) = a.i;
+
+                        da(31,0)   = data(31,0);
+                        da(63,32)  = data(63,32);
+                        da(95,64)  = data(95,64);
+                        da(127,96) = data(127,96);
 
                         tmp.data   = da;
                         tmp.keep   = -1;
                         tmp.last   = 0;
                         txA0.write(tmp);
-                        txA1.write(tmp);
+                        // txA1.write(tmp);
                         
                     }
                     
-                    da(31,0)=data_temp[1][3];
-                    da(63,32)  = 0;
-                    da(95,64)  = 0;
-                    da(127,96) = 0;
-                    tmp.data  =  da; 
-                    tmp.keep  = 0x000f;
-                    tmp.last  = 1;
+                    // da(31,0)=data_temp[1][3];
+                    // da(31,0)=1;
+                    // da(63,32)  = 0;
+                    // da(95,64)  = 0;
+                    // da(127,96) = 0;
+                    // tmp.data  =  da; 
+                    // tmp.keep  = 0x000f;
+                    // tmp.last  = 1;
 
-                    txA0.write(tmp);
-                    txA1.write(tmp);
+                    // txA0.write(tmp);
+                    // txA1.write(tmp);
                     
 
                 }
@@ -315,37 +333,47 @@ void sendB(ap_uint<PLIO_WIDTH> b_buf[Z*Y][PACK_IN*RIGHT_SIZE],
                         header=generateHeader(0,pack);
                         int position=pack*RIGHT_SIZE;
                         int pos1=y+z*Y;
-                        data=b_buf[pos1][position];
+                        // data=b_buf[pos1][position];
 
-                        data_temp[0][0]=data(31,0);
-                        data_temp[0][1]=data(63,32);
-                        data_temp[0][2]=data(95,64);
-                        data_temp[0][3]=data(127,96);
+                        // data_temp[0][0]=data(31,0);
+                        // data_temp[0][1]=data(63,32);
+                        // data_temp[0][2]=data(95,64);
+                        // data_temp[0][3]=data(127,96);
+                        // std::cout << "Header " << header << "\n";
+                        // da(31,0)   = header;
+                        // da(63,32)  = data_temp[0][0];
+                        // da(95,64)  = data_temp[0][1];
+                        // da(127,96) = data_temp[0][2];
+                        // da(63,32)  = 1;
+                        // da(95,64)  = 1;
+                        // da(127,96) = 1;
+
+                        // tmp.data   = da;
+                        // tmp.keep   = -1;
+                        // tmp.last   = 0;
+
+                        // txB0.write(tmp);
                         
-                        da(31,0)   = header;
-                        da(63,32)  = data_temp[0][0];
-                        da(95,64)  = data_temp[0][1];
-                        da(127,96) = data_temp[0][2];
-
-                        tmp.data   = da;
-                        tmp.keep   = -1;
-                        tmp.last   = 0;
-
-                        txB0.write(tmp);
-                        
-                        for (int i = 1; i < RIGHT_SIZE; i++){ 
+                        for (int i = 0; i < RIGHT_SIZE; i++){ 
                         #pragma HLS PIPELINE II = 1
                             int pos0=i+position;
                             data = b_buf[pos1][pos0];
 
-                            data_temp[i%2][0]=data(31,0);
-                            data_temp[i%2][1]=data(63,32);
-                            data_temp[i%2][2]=data(95,64);
-                            data_temp[i%2][3]=data(127,96);
-                            da(31,0)   = data_temp[(i+1)%2][3];
-                            da(63,32)  = data_temp[i%2][0];
-                            da(95,64)  = data_temp[i%2][1];
-                            da(127,96) = data_temp[i%2][2];
+                            // data_temp[i%2][0]=data(31,0);
+                            // data_temp[i%2][1]=data(63,32);
+                            // data_temp[i%2][2]=data(95,64);
+                            // data_temp[i%2][3]=data(127,96);
+                            // da(31,0)   = data_temp[(i+1)%2][3];
+                            // da(63,32)  = data_temp[i%2][0];
+                            // da(95,64)  = data_temp[i%2][1];
+                            // da(127,96) = data_temp[i%2][2];
+                            // f_i_d a;
+                            // a.f = 1.0;
+                            
+                            da(31,0)   = data(31,0);
+                            da(63,32)  = data(63,32);
+                            da(95,64)  = data(95,64);
+                            da(127,96) = data(127,96);
 
                             tmp.data   = da;
                             tmp.keep   = -1;
@@ -354,15 +382,18 @@ void sendB(ap_uint<PLIO_WIDTH> b_buf[Z*Y][PACK_IN*RIGHT_SIZE],
                               
                         }
                         
-                        da(31,0)   = data_temp[1][3];
-                        da(63,32)  = 0;
-                        da(95,64)  = 0;
-                        da(127,96) = 0;
+                        // da(31,0)   = 1;
+                        // // da(31,0)   = data_temp[1][3];
+                        // da(63,32)  = 0;
+                        // da(95,64)  = 0;
+                        // da(127,96) = 0;
 
-                        tmp.data =  da;
-                        tmp.keep  = 0x000f;
-                        tmp.last  = 1;
-                        txB0.write(tmp);
+                        // tmp.data =  da;
+                        // tmp.keep  = 0x000f;
+                        // tmp.last  = 1;
+                        // txB0.write(tmp);
+
+
                         
 
                     }
@@ -392,8 +423,8 @@ void receiveC(ap_uint<PLIO_WIDTH> c_buf[Z*X][PACK_OUT][OUT_SIZE],axis_stream& rx
         int cnt[PACK_OUT];
         #pragma HLS ARRAY_PARTITION variable=cnt complete dim=0
 
-        unsigned int ID;
-        unsigned int tile_x;
+        unsigned int ID=0;
+        unsigned int tile_x=0;
         ap_uint<32> header;
 
         for(int i=0;i<PACK_OUT;i++){
@@ -405,16 +436,16 @@ void receiveC(ap_uint<PLIO_WIDTH> c_buf[Z*X][PACK_OUT][OUT_SIZE],axis_stream& rx
             for (int x = 0; x < X; x++) {
                 for (int y = 0; y < Y; y++){
                     for (int pack = 0; pack < PACK_OUT; pack++){
-                        tmp=rxC.read();
-                        header=tmp.data(31,0);
+                        // tmp=rxC.read();
+                        // header=tmp.data(31,0);
                         
-                        data_temp0[0][1].data_uint=tmp.data(63,32);
-                        data_temp0[0][2].data_uint=tmp.data(95,64);
-                        data_temp0[0][3].data_uint=tmp.data(127,96);
+                        // data_temp0[0][1].data_uint=tmp.data(63,32);
+                        // data_temp0[0][2].data_uint=tmp.data(95,64);
+                        // data_temp0[0][3].data_uint=tmp.data(127,96);
 
-                        ID=getPacketId(header);
-                        tile_x=cnt[ID]/Y;
-                        cnt[ID]=cnt[ID]+1;
+                        // ID=getPacketId(header);
+                        // tile_x=cnt[ID]/Y;
+                        // cnt[ID]=cnt[ID]+1;
 
                         for (int i = 0; i < OUT_SIZE; i++){ 
                         #pragma HLS PIPELINE II = 1
@@ -423,14 +454,19 @@ void receiveC(ap_uint<PLIO_WIDTH> c_buf[Z*X][PACK_OUT][OUT_SIZE],axis_stream& rx
 
                             for(int un=0; un<NUM_PER_TRA; un++){
                             #pragma HLS UNROLL factor=NUM_PER_TRA
-                                data_temp0[(i+1)%2][un].data_uint=tmp.data(un*32+31,un*32);
+                                data_temp0[0][un].data_uint=tmp.data(un*32+31,un*32);
                                 data_temp1[un].data_uint= c_buf[tile_x][ID][i](un*32+31,un*32);
                                 
                             }
-                            data_temp2[0].data_float= data_temp0[i%2][1].data_float+data_temp1[0].data_float;
-                            data_temp2[1].data_float= data_temp0[i%2][2].data_float+data_temp1[1].data_float;
-                            data_temp2[2].data_float= data_temp0[i%2][3].data_float+data_temp1[2].data_float;
-                            data_temp2[3].data_float= data_temp0[(i+1)%2][0].data_float+data_temp1[3].data_float;
+                            // data_temp2[0].data_float= data_temp0[i%2][1].data_float+data_temp1[0].data_float;
+                            // data_temp2[1].data_float= data_temp0[i%2][2].data_float+data_temp1[1].data_float;
+                            // data_temp2[2].data_float= data_temp0[i%2][3].data_float+data_temp1[2].data_float;
+                            // data_temp2[3].data_float= data_temp0[(i+1)%2][0].data_float+data_temp1[3].data_float;
+
+                            data_temp2[0].data_float= data_temp0[0][0].data_float+data_temp1[0].data_float;
+                            data_temp2[1].data_float= data_temp0[0][1].data_float+data_temp1[1].data_float;
+                            data_temp2[2].data_float= data_temp0[0][2].data_float+data_temp1[2].data_float;
+                            data_temp2[3].data_float= data_temp0[0][3].data_float+data_temp1[3].data_float;
 
                             c_buf[tile_x][ID][i](31,0)   =  data_temp2[0].data_uint;  
                             c_buf[tile_x][ID][i](63,32)  =  data_temp2[1].data_uint;
@@ -446,7 +482,7 @@ void receiveC(ap_uint<PLIO_WIDTH> c_buf[Z*X][PACK_OUT][OUT_SIZE],axis_stream& rx
 }
 
 void compute(axis_stream_A& dataA_out, axis_stream_B& dataB_out, axis_stream_C& dataC_in,
-              axis_stream& txA0, axis_stream& txA1,axis_stream& txB0, axis_stream& txB1, axis_stream& txB2, axis_stream& txB3,
+              axis_stream& txA0, axis_stream& txB0,
               axis_stream& rxC0,const int TX, const int TY, const int TZ){
 
     ap_uint<PLIO_WIDTH> buff0_A[A*(B/PACK_IN)][X*Y][PACK_IN*LEFT_SIZE];
@@ -493,13 +529,13 @@ void compute(axis_stream_A& dataA_out, axis_stream_B& dataB_out, axis_stream_C& 
             loadA(dataA_out,buff0_A,rd<Total_rd);
             loadB(dataB_out,buff0_B,rd<Total_rd);   
 
-            sendA<0>(buff1_A[0],txA0,txA1,rd>0&&rd<Total_rd+1);
+            sendA<0>(buff1_A[0],txA0,rd>0&&rd<Total_rd+1);
             
 
             sendB<0>(buff1_B[0],txB0,rd>0&&rd<Total_rd+1);
-            sendB<1>(buff1_B[1],txB1,rd>0&&rd<Total_rd+1);
-            sendB<2>(buff1_B[2],txB2,rd>0&&rd<Total_rd+1);
-            sendB<3>(buff1_B[3],txB3,rd>0&&rd<Total_rd+1);
+            // sendB<1>(buff1_B[1],txB1,rd>0&&rd<Total_rd+1);
+            // sendB<2>(buff1_B[2],txB2,rd>0&&rd<Total_rd+1);
+            // sendB<3>(buff1_B[3],txB3,rd>0&&rd<Total_rd+1);
             
 
             receiveC<0>(buff0_C[0],rxC0, rd>0&&rd<Total_rd+1);
@@ -511,13 +547,13 @@ void compute(axis_stream_A& dataA_out, axis_stream_B& dataB_out, axis_stream_C& 
             loadA(dataA_out,buff1_A,rd<Total_rd);
             loadB(dataB_out,buff1_B,rd<Total_rd);   
 
-            sendA<0>(buff0_A[0],txA0,txA1,rd>0&&rd<Total_rd+1);
+            sendA<0>(buff0_A[0],txA0,rd>0&&rd<Total_rd+1);
             
 
             sendB<0>(buff0_B[0],txB0,rd>0&&rd<Total_rd+1);
-            sendB<1>(buff0_B[1],txB1,rd>0&&rd<Total_rd+1);
-            sendB<2>(buff0_B[2],txB2,rd>0&&rd<Total_rd+1);
-            sendB<3>(buff0_B[3],txB3,rd>0&&rd<Total_rd+1);
+            // sendB<1>(buff0_B[1],txB1,rd>0&&rd<Total_rd+1);
+            // sendB<2>(buff0_B[2],txB2,rd>0&&rd<Total_rd+1);
+            // sendB<3>(buff0_B[3],txB3,rd>0&&rd<Total_rd+1);
             
 
             receiveC<0>(buff0_C[0],rxC0, rd>0&&rd<Total_rd+1);
@@ -529,13 +565,13 @@ void compute(axis_stream_A& dataA_out, axis_stream_B& dataB_out, axis_stream_C& 
             loadA(dataA_out,buff0_A,rd<Total_rd);
             loadB(dataB_out,buff0_B,rd<Total_rd);   
 
-            sendA<0>(buff1_A[0],txA0,txA1,rd>0&&rd<Total_rd+1);
+            sendA<0>(buff1_A[0],txA0,rd>0&&rd<Total_rd+1);
             
 
             sendB<0>(buff1_B[0],txB0,rd>0&&rd<Total_rd+1);
-            sendB<1>(buff1_B[1],txB1,rd>0&&rd<Total_rd+1);
-            sendB<2>(buff1_B[2],txB2,rd>0&&rd<Total_rd+1);
-            sendB<3>(buff1_B[3],txB3,rd>0&&rd<Total_rd+1);
+            // sendB<1>(buff1_B[1],txB1,rd>0&&rd<Total_rd+1);
+            // sendB<2>(buff1_B[2],txB2,rd>0&&rd<Total_rd+1);
+            // sendB<3>(buff1_B[3],txB3,rd>0&&rd<Total_rd+1);
             
 
             receiveC<0>(buff1_C[0],rxC0, rd>0&&rd<Total_rd+1);
@@ -547,13 +583,13 @@ void compute(axis_stream_A& dataA_out, axis_stream_B& dataB_out, axis_stream_C& 
             loadA(dataA_out,buff1_A,rd<Total_rd);
             loadB(dataB_out,buff1_B,rd<Total_rd);   
 
-            sendA<0>(buff0_A[0],txA0,txA1,rd>0&&rd<Total_rd+1);
+            sendA<0>(buff0_A[0],txA0,rd>0&&rd<Total_rd+1);
             
 
             sendB<0>(buff0_B[0],txB0,rd>0&&rd<Total_rd+1);
-            sendB<1>(buff0_B[1],txB1,rd>0&&rd<Total_rd+1);
-            sendB<2>(buff0_B[2],txB2,rd>0&&rd<Total_rd+1);
-            sendB<3>(buff0_B[3],txB3,rd>0&&rd<Total_rd+1);
+            // sendB<1>(buff0_B[1],txB1,rd>0&&rd<Total_rd+1);
+            // sendB<2>(buff0_B[2],txB2,rd>0&&rd<Total_rd+1);
+            // sendB<3>(buff0_B[3],txB3,rd>0&&rd<Total_rd+1);
             
 
             receiveC<0>(buff1_C[0],rxC0, rd>0&&rd<Total_rd+1);
@@ -565,8 +601,7 @@ void compute(axis_stream_A& dataA_out, axis_stream_B& dataB_out, axis_stream_C& 
 }
 
 void dma0(ap_uint<AXI_WIDTH_A>* ina, ap_uint<AXI_WIDTH_B>* inb, ap_uint<AXI_WIDTH_C>* out0,
-          axis_stream& txA0, axis_stream& txA1,axis_stream& txB0, axis_stream& txB1, axis_stream& txB2, axis_stream& txB3,
-          axis_stream& rxC0,const int TX, const int TY, const int TZ){
+          axis_stream& txA0, axis_stream& txB0, axis_stream& rxC0, const int TX, const int TY, const int TZ){
     
     #pragma HLS interface m_axi offset=slave bundle=gmem0 port=ina max_read_burst_length=16 num_read_outstanding=64
     #pragma HLS interface s_axilite bundle=control port=ina
@@ -578,11 +613,11 @@ void dma0(ap_uint<AXI_WIDTH_A>* ina, ap_uint<AXI_WIDTH_B>* inb, ap_uint<AXI_WIDT
     #pragma HLS interface s_axilite bundle=control port=TY
     #pragma HLS interface s_axilite bundle=control port=TZ
     #pragma HLS interface axis port=txA0
-    #pragma HLS interface axis port=txA1
+    // #pragma HLS interface axis port=txA1
     #pragma HLS interface axis port=txB0
-    #pragma HLS interface axis port=txB1
-    #pragma HLS interface axis port=txB2
-    #pragma HLS interface axis port=txB3
+    // #pragma HLS interface axis port=txB1
+    // #pragma HLS interface axis port=txB2
+    // #pragma HLS interface axis port=txB3
     #pragma HLS interface axis port=rxC0
     #pragma HLS interface s_axilite bundle=control port=return
 
@@ -601,10 +636,14 @@ void dma0(ap_uint<AXI_WIDTH_A>* ina, ap_uint<AXI_WIDTH_B>* inb, ap_uint<AXI_WIDT
     loadB_ddr(inb,addrB_out,dataB_out,TX,TY,TZ);
 
     address_C_ddr(addrC_out,TX,TZ);
+// The consumer kernel is moved below compute as it block the code during sw_emu
+#ifndef __SW_EMU__
     storeC_ddr(out0,addrC_out,dataC_in,TX,TZ);
-
+#endif
     compute(dataA_out, dataB_out, dataC_in,
-             txA0, txA1,txB0, txB1, txB2, txB3,
-             rxC0,TX, TY, TZ);
+             txA0, txB0, rxC0,TX, TY, TZ);
+#ifdef __SW_EMU__
+    storeC_ddr(out0,addrC_out,dataC_in,TX,TZ);
+#endif
 
 }

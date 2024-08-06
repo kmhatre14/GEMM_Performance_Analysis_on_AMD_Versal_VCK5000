@@ -15,7 +15,7 @@ source /opt/xilinx/xrt/setup.sh
 # ./int8/AIE64/output/hostexe ./int8/AIE64/output/mm_hw.xclbin 256 256 256 1000 0
 # ./int8/AIE128/output/hostexe ./int8/AIE128/output/mm_hw.xclbin 256 512 256 1000 0
 # ./int8/AIE256/output/hostexe ./int8/AIE256/output/mm_hw.xclbin 256 512 512 1000 0
-./fp32/AIE16_isolated/AIE16_nocompute_noMMtypeKernel_noCascade/output/hostexe ./fp32/AIE16_isolated/AIE16_nocompute_noMMtypeKernel_noCascade/output/mm_hw.xclbin 32 128 128 1000 0 
+# ./fp32/AIE16_isolated/AIE16_nocompute_noMMtypeKernel_noCascade/output/hostexe ./fp32/AIE16_isolated/AIE16_nocompute_noMMtypeKernel_noCascade/output/mm_hw.xclbin 32 128 128 1000 0 
 # ./int8/AIE384/output/hostexe ./int8/AIE384/output/mm_hw.xclbin 512 512 512 1000 0
 # ./run_exp.sh int8/AIE256/output 1000 square &> square.int8.AIE256.vck5000.run
 # ./run_exp.sh int8/AIE256/output 1000 fat_skinny &> fat_skinny.int8.AIE256.vck5000.run
