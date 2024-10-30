@@ -20,9 +20,9 @@
 #define A 4
 #define B 8
 #define C 8
-#define X 4
-#define Y 2
-#define Z 2
+#define X 1
+#define Y 1
+#define Z 1
 #define PACK_IN 2
 #define PACK_OUT 2
 

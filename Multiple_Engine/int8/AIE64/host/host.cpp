@@ -160,6 +160,14 @@ int main(int argc, char** argv) {
     // printf("graph run\n");
     // ghdl0.run(-1);
     
+    std::cout << "Matrix Multiplication Size - M x K x N : " 
+                << M << " x " << K << " x " << N <<std::endl;
+
+    std::cout << "Accelerator native workload size (AIE + PL) M x K x N : " 
+                << M_ACC0 << " x " << K_ACC0 << " x " << N_ACC0 << std::endl;
+
+    std::cout << "Tiles for host (DDR) TX x TY x TZ : " 
+                << TX0 << " x " << TY0 << " x " << TZ0 << std::endl;
 
     std::cout << "Kernel run\n";
     xrt::run dma_run0;
