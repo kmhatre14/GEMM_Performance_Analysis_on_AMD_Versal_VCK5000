@@ -122,7 +122,7 @@ $(TEMP_DIR)/dma0.xo: kernel0/dma0.cpp kernel0/dma0.hpp
 	@echo "### ***** dma0 compilation done! *****"
 
 build: $(BINARY_CONTAINERS)
-$(BUILD_DIR)/${XCLBIN}: ${KERNEL_XO} ${LIBADF}
+$(BUILD_DIR)/${XCLBIN}: ${KERNEL_XO} $(EXEC_DIR)/${LIBADF}
 	mkdir -p $(BUILD_DIR)
 	@mkdir -p $(EXEC_DIR)
 	time v++ -l $(CLFLAGS) --temp_dir $(BUILD_DIR) $(LDCLFLAGS) -o $@ ${KERNEL_XO} $(EXEC_DIR)/${LIBADF}
@@ -135,7 +135,7 @@ $(HOST_EXE):
 	@echo "COMPLETE: Host application created."
 
 package:${FINAL_XCLBIN}
-${FINAL_XCLBIN}: $(BINARY_CONTAINERS) $(LIBADF) 
+${FINAL_XCLBIN}: $(BINARY_CONTAINERS) $(EXEC_DIR)/$(LIBADF) 
 	@mkdir -p $(EXEC_DIR)
 	time v++ -p -t $(TARGET) -f $(PLATFORM) $(BINARY_CONTAINERS) $(EXEC_DIR)/$(LIBADF) -o $(EXEC_DIR)/${FINAL_XCLBIN} --package.boot_mode=ospi --temp_dir $(BUILD_DIR_MAIN)/package_temp
 	@echo "COMPLETE: package created."

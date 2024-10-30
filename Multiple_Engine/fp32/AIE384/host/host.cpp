@@ -47,9 +47,9 @@ const int W2_0=32;
 const int A0=12;
 const int B0=4;
 const int C0=8;
-const int X0=2;
-const int Y0=4;
-const int Z0=3;
+const int X0=1;
+const int Y0=1;
+const int Z0=1;
 const int M_ACC0=H1_0*A0*X0;
 const int K_ACC0=W1_0*B0*Y0;
 const int N_ACC0=W2_0*C0*Z0;
@@ -160,6 +160,20 @@ int main(int argc, char** argv) {
     // printf("graph run\n");
     // ghdl0.run(-1);
     
+    std::cout << "Config: " << "A " << A0 << " B " << B0 << " C " 
+                        << C0 << " X " << X0 << " Y " << Y0 << " Z " << Z0 << std::endl;
+
+    std::cout << "Matrix Multiplication Size - M x K x N : " 
+                << M << " x " << K << " x " << N <<std::endl;
+
+    std::cout << "Accelerator native workload size (AIE) M x K x N : " 
+                << H1_0*A0 << " x " << W1_0*B0 << " x " << W2_0*C0 << std::endl;
+
+    std::cout << "Accelerator native workload size (PL) M x K x N : " 
+                << M_ACC0 << " x " << K_ACC0 << " x " << N_ACC0 << std::endl;
+
+    std::cout << "Tiles for host (DDR) TX x TY x TZ : " 
+                << TX0 << " x " << TY0 << " x " << TZ0 << std::endl;   
 
     std::cout << "Kernel run\n";
     xrt::run dma_run0;

@@ -19,9 +19,9 @@
 #define A 12
 #define B 4
 #define C 8
-#define X 2
-#define Y 4
-#define Z 3
+#define X 1
+#define Y 1
+#define Z 1
 #define PACK_IN 4
 #define PACK_OUT 4
 
