@@ -40,6 +40,17 @@ hostexe
 *.Xil
 *.db
 *.run
+*.ipcache
+*emu_qemu_scripts
+*x86simulator_output
+*launch_hw_emu.sh
+*pmc_args.txt
+*qemu_args.txt
+*cfg
+*emulation_data
+*sim
+*output_*
+*output
 
 # Everything inside build
 build/
@@ -107,8 +118,11 @@ Single_Engine/int8/xilinx:pcie-hw-em:7v3:1.0-0-xilinx_vck5000_gen4x8_qdma_2_2022
 Single_Engine/int8/aiesim_options.txt
 Single_Engine/int8/add_wave.tcl
 Single_Engine/int8/eff.sh
+Single_Engine/int8/output
 Multiple_Engine/int8/AIE16/simulation
 Multiple_Engine/int8/AIE16/aiesimulator_output
+
+
 
 # gitignore maxeva files 
 # MAXEVA/MaxEVA/output
