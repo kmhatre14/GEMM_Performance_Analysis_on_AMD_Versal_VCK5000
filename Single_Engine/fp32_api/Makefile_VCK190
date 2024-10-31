@@ -6,7 +6,7 @@ MODE	 = linux
 HOST_ARCH = x86
 Frequency = 230
 #PLATFORM_REPO_PATHS=/mnt/vault0/kmhatre/software/AMD/platforms
-# PLATFORM_REPO_PATHS=/opt/xilinx/platforms
+# PLATFORM_REPO_PATHS=/opt/AMD/Platforms/
 PLATFORM_NAME=xilinx_vck190_base_202220_1
 PLATFORM = ${PLATFORM_REPO_PATHS}/${PLATFORM_NAME}/${PLATFORM_NAME}.xpfm
 XCLBIN   = ${PLATFORM_NAME}${TARGET}.xclbin
@@ -19,6 +19,7 @@ BUILD_DIR := ./build_dir.$(TARGET).${PLATFORM_NAME}
 KERNEL_XO :=$(TEMP_DIR)/dma0.xo 
 GRAPH   := aie/$(aie_kernel_config)/aie_top_all.cpp
 LIBADF  = libadf.a
+# AIE_CMPL_CMD = aiecompiler -platform=${PLATFORM} --target=x86sim --stacksize=1024 --pl-register-threshold=250 --pl-freq=230  -include="./aie/$(aie_kernel_config)" -include="./aie/$(aie_kernel_config)/layer0"  --disable-transform-broadcast-split=false -workdir=./work_aie/Work_$(aie_kernel_config) ${GRAPH}
 AIE_CMPL_CMD = aiecompiler -platform=${PLATFORM} --target=hw --stacksize=1024 --pl-register-threshold=250 --pl-freq=230  -include="./aie/$(aie_kernel_config)" -include="./aie/$(aie_kernel_config)/layer0"  --disable-transform-broadcast-split=false -workdir=./work_aie/Work_$(aie_kernel_config) ${GRAPH}
 # AIE_CMPL_CMD = aiecompiler -platform=${PLATFORM} --target=hw --stacksize=1024 --pl-register-threshold=250 --pl-freq=230  -include="./aie" -include="./aie/layer0"  --constraints ./aie_top_all_aie_mapped.aiecst --disable-transform-broadcast-split=false -workdir=./Work ${GRAPH}
 AIE_SIM_CMD = aiesimulator --pkg-dir=./work_aie/Work_$(aie_kernel_config) --dump-vcd sim/aie_sim_$(aie_kernel_config)/$(aie_kernel_config) --profile -o sim/aie_sim_$(aie_kernel_config)
@@ -85,7 +86,7 @@ __check_defined = \
 		$(error Undefined $1$(if $2, ($2))))
 
 guard-PLATFORM_REPO_PATHS:
-	$(call check_defined, PLATFORM_REPO_PATHS, Set your where you downloaded xilinx_vck190_base_202220_1)
+	$(call check_defined, PLATFORM_REPO_PATHS, Set your where you downloaded xilinx_vck190_es1_base_202110_1)
 
 
 

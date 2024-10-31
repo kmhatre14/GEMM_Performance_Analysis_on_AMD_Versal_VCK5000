@@ -6,7 +6,7 @@ MODE	 = linux
 HOST_ARCH = x86
 Frequency = 230
 #PLATFORM_REPO_PATHS=/mnt/vault0/kmhatre/software/AMD/platforms
-# PLATFORM_REPO_PATHS=/opt/xilinx/platforms
+# PLATFORM_REPO_PATHS=/opt/AMD/Platforms/
 PLATFORM_NAME=xilinx_vck190_base_202220_1
 PLATFORM = ${PLATFORM_REPO_PATHS}/${PLATFORM_NAME}/${PLATFORM_NAME}.xpfm
 XCLBIN   = ${PLATFORM_NAME}${TARGET}.xclbin
@@ -85,7 +85,7 @@ __check_defined = \
 		$(error Undefined $1$(if $2, ($2))))
 
 guard-PLATFORM_REPO_PATHS:
-	$(call check_defined, PLATFORM_REPO_PATHS, Set your where you downloaded xilinx_vck190_base_202220_1)
+	$(call check_defined, PLATFORM_REPO_PATHS, Set your where you downloaded xilinx_vck190_es1_base_202110_1)
 
 
 
