@@ -70,6 +70,19 @@ charm=(
     '3072,4096,1024'
 )
 
+new_asymetric=(
+    '4096,128,4096'
+    '128,4096,128'
+    '8192,128,3584'
+    '4000,256,8192'
+    '11008,4096,4096'
+    '4096,11008,4096'
+    '13824,5120,4096'
+    '5120,13824,4096'
+    '832,6656,4096'
+    '20480,6656,4096'
+    '6656,20480,4096'
+)
 
 run_vck(){
 
@@ -103,6 +116,10 @@ case $workload_list in
     charm)
         echo "Running CHARM paper workload"
         run_vck ${charm[@]}
+        ;;
+    new_asymetric)
+        echo "Running new_asymetric paper workload"
+        run_vck ${new_asymetric[@]}
         ;;
     help)
     usage
